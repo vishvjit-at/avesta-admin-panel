@@ -1,5 +1,5 @@
 import express from "express";
-import { Router as AdminRoute } from "./routes/adminRoutes";
+import { Router as AdminRoute } from "./routes/AuthenticationRoutes";
 
 const app = express();
 const port = 3000;

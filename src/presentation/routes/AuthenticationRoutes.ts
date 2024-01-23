@@ -1,8 +1,8 @@
 import express from "express";
-import { AdminController } from "../controllers/adminController";
+import { AuthenticateAdminController } from "../controllers/adminController";
 const Router = express.Router();
 
-const IAdminController = new AdminController();
+const IAdminController = new AuthenticateAdminController();
 
 Router.post("/login", IAdminController.createUser);
 

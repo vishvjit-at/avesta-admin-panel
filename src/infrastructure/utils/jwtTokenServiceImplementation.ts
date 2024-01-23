@@ -1,5 +1,5 @@
-import { AdminEntity } from "../../../domain/entities/adminEntity";
-import { ITokenService } from "../../../domain/interfaces/repos/tokenService";
+import { AdminEntity } from "../../domain/entities/adminEntity";
+import { ITokenService } from "../../domain/interfaces/repos/tokenService";
 
 import * as jwt from "jsonwebtoken";
 

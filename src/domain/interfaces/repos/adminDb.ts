@@ -1,6 +1,6 @@
 import { AdminEntity } from "../../../domain/entities/adminEntity";
-import { IAdminLoginDetails } from "../dtos/adminDto";
+import { IAuthenticationDetails } from "../dtos/adminDto";
 
 export interface AdminRepo {
-  getUserByEmail(adminDetails: IAdminLoginDetails): Promise<AdminEntity | undefined>;
+  getAdminByEmailAndPassword(adminDetails: IAuthenticationDetails): Promise<AdminEntity | undefined>;
 }

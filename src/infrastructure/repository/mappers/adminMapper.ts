@@ -1,7 +1,7 @@
 import { AdminEntity } from "../../../domain/entities/adminEntity";
 import { adminSequelizeModel } from "../sequalize/adminSequalizeModel";
 
-export class AdminMapper {
+export class AuthenticateAdminMapper {
   static toDomain(adminFromDb: adminSequelizeModel[]) {
     const admins: AdminEntity[] = [];
     adminFromDb.forEach((data) => {
