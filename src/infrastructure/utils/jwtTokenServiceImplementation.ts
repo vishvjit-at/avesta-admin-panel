@@ -1,4 +1,4 @@
-import { AdminEntity } from "../../domain/entities/adminEntity";
+import { AdminEntity } from "../../domain/entities/authenticationEntity";
 import { ITokenService } from "../../domain/interfaces/repos/tokenService";
 
 import * as jwt from "jsonwebtoken";
@@ -20,9 +20,11 @@ export class JwtTokenServiceImplementation implements ITokenService {
     return token;
   }
 
-  isTokenVerified(token: string): boolean {
-    const data = jwt.verify(token, this.secretKey);
-
-    return data ? true : false;
+  getDataFromToken<T>(token: string): T | undefined {
+    const data = jwt.decode(token);
+    if (!data) {
+      return;
+    }
+    return data as T;
   }
 }

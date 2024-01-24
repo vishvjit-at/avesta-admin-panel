@@ -1,4 +1,4 @@
-import { AdminEntity } from "../../../domain/entities/adminEntity";
+import { AdminEntity } from "../../entities/authenticationEntity";
 import { IAuthenticationDetails } from "../dtos/adminDto";
 
 export interface AdminRepo {

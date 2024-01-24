@@ -1,4 +1,4 @@
-import { AdminEntity } from "../../../domain/entities/adminEntity";
+import { AdminEntity } from "../../../domain/entities/authenticationEntity";
 import { adminSequelizeModel } from "../sequalize/adminSequalizeModel";
 
 export class AuthenticateAdminMapper {

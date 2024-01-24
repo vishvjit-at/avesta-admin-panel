@@ -1,6 +1,6 @@
-import { AdminEntity } from "../../../domain/entities/adminEntity";
+import { AdminEntity } from "../../entities/authenticationEntity";
 
 export interface ITokenService {
   getToken(admin: AdminEntity): string;
-  isTokenVerified(token: string): boolean;
+  getDataFromToken<T>(token: string): T | undefined;
 }
