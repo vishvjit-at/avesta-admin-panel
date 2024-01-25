@@ -1,9 +1,9 @@
 import { sequelize } from "./sequalizerConnection";
 import { Model, DataTypes } from "sequelize";
 
-export class adminSequelizeModel extends Model {}
+export class UserModel extends Model {}
 
-adminSequelizeModel.init(
+UserModel.init(
   {
     id: {
       type: DataTypes.INTEGER,

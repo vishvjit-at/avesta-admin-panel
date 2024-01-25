@@ -1,6 +1,6 @@
 import express from "express";
-import { Router as AdminRoute } from "./routes/AuthenticationRoutes";
-import { Router as HomePageRoute } from "./routes/HomePageRoutes";
+import { Router as userRouter } from "./routes/userAuthenticationRoutes";
+import { Router as homePageRouter } from "./routes/homePageRoutes";
 
 const app = express();
 const port = 3000;
@@ -9,8 +9,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/admin", AdminRoute);
-app.use("/homePage", HomePageRoute);
+app.use("/admin", userRouter);
+app.use("/homePage", homePageRouter);
 
 app.get("/", (req, res) => res.json({ data: "hello" }));
 

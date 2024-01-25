@@ -1,14 +1,14 @@
-import { AdminEntity } from "../../domain/entities/authenticationEntity";
-import { ITokenService } from "../../domain/interfaces/repos/tokenService";
+import { UserEntity } from "../../domain/entities/userEntity";
+import { ITokenService } from "../../domain/interfaces/utils/tokenService";
 
 import * as jwt from "jsonwebtoken";
 
-export class JwtTokenServiceImplementation implements ITokenService {
+export class TokenServiceImpl implements ITokenService {
   secretKey: string;
   constructor() {
     this.secretKey = "secretKey";
   }
-  getToken(admin: AdminEntity): string {
+  getToken(admin: UserEntity): string {
     const payloadData = {
       name: admin.getName(),
       email: admin.getEmail(),

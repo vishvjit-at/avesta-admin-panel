@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import { VerifyAdminGateway } from "../../gateways/VerifyAdminGateway";
+import { UserVerification } from "../../gateways/userVerification";
 
 export class AuthMiddleware {
   static async authenticateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const iVerification = new VerifyAdminGateway();
+      const userVerification = new UserVerification();
 
-      const isUserValid = await iVerification.verify(req.query.token as string);
+      const isUserValid = await userVerification.verify(req.query.token as string);
 
       if (!isUserValid) {
         res.status(401).send();

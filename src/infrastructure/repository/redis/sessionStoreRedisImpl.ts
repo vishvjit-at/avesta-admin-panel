@@ -1,8 +1,8 @@
-import { IRedis } from "../../../domain/interfaces/repos/redis";
+import { ISessionStore } from "../../../domain/interfaces/repos/sessionStore";
 import { redisConnection } from "./redisClient";
 
-export class RedisImplementation implements IRedis {
-  async isTokenExistInRedis(token: string) {
+export class SessionStoreRedisImpl implements ISessionStore {
+  async isTokenExistInSessionStore(token: string) {
     await redisConnection.connect();
     const data = await redisConnection.exists(token);
     redisConnection.disconnect();

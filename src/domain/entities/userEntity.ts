@@ -1,4 +1,4 @@
-export class AdminEntity {
+export class UserEntity {
   constructor(private name: string, private email: string, private password: string, private id?: number) {}
 
   getId(): number | undefined {
