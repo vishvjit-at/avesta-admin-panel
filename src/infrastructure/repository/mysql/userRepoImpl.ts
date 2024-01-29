@@ -1,17 +1,17 @@
 import { UserEntity } from "../../../domain/entities/userEntity";
-import { UserModel } from "../sequalize/userModel";
-import { AuthenticateAdminMapper } from "../mappers/userMapper";
+import { UserModel } from "../sequelize/models/userModel";
+import { userMapper } from "../mappers/userMapper";
 import { IAuthReqDto } from "../../../domain/interfaces/dtos/userDto";
 import { IUserRepo } from "../../../domain/interfaces/repos/userRepo";
 
 export class UserRepoImpl implements IUserRepo {
-  async getAdminByEmailAndPassword(admin: IAuthReqDto): Promise<UserEntity | undefined> {
-    const adminFromDb = await UserModel.findAll({ where: { email: admin.email, password: admin.password } });
+  async getUserByEmailAndPassword(user: IAuthReqDto): Promise<UserEntity | undefined> {
+    const usersFromDb = await UserModel.findAll({ where: { email: user.email, password: user.password } });
 
-    const admins = AuthenticateAdminMapper.toDomain(adminFromDb);
-    if (!admins.length) {
+    const users = userMapper.toDomain(usersFromDb);
+    if (!users.length) {
       return;
     }
-    return admins[0];
+    return users[0];
   }
 }

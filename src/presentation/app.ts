@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/admin", userRouter);
+app.use("/user", userRouter);
 app.use("/homePage", homePageRouter);
 
 app.get("/", (req, res) => res.json({ data: "hello" }));

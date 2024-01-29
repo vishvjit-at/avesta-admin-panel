@@ -1,19 +1,19 @@
 import { UserEntity } from "../../../domain/entities/userEntity";
-import { UserModel } from "../sequalize/userModel";
+import { UserModel } from "../sequelize/models/userModel";
 
-export class AuthenticateAdminMapper {
-  static toDomain(adminFromDb: UserModel[]) {
-    const admins: UserEntity[] = [];
-    adminFromDb.forEach((data) => {
-      const admin = new UserEntity(
-        data.dataValues.name,
-        data.dataValues.email,
-        data.dataValues.password,
-        data.dataValues.id
-      );
-      admins.push(admin);
+export class userMapper {
+  static toDomain(usersFromDb: UserModel[]) {
+    const users: UserEntity[] = [];
+    usersFromDb.forEach((data) => {
+      const user = new UserEntity({
+        name: data.dataValues.userName,
+        email: data.dataValues.email,
+        password: data.dataValues.password,
+        role: data.dataValues.id
+      });
+      users.push(user);
     });
 
-    return admins;
+    return users;
   }
 }

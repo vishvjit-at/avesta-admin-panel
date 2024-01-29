@@ -8,11 +8,11 @@ export class TokenServiceImpl implements ITokenService {
   constructor() {
     this.secretKey = "secretKey";
   }
-  getToken(admin: UserEntity): string {
+  getToken(user: UserEntity): string {
     const payloadData = {
-      name: admin.getName(),
-      email: admin.getEmail(),
-      id: admin.getId()
+      name: user.getUserName(),
+      email: user.getEmail(),
+      id: user.getId()
     };
 
     const token = jwt.sign(payloadData, this.secretKey);

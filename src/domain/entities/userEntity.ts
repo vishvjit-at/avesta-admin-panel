@@ -1,35 +1,43 @@
 export class UserEntity {
-  constructor(private name: string, private email: string, private password: string, private id?: number) {}
+  constructor(private user: { name: string; email: string; password: string; role: string; id?: number }) {}
 
   getId(): number | undefined {
-    return this.id;
+    return this.user.id;
   }
 
-  getName(): string {
-    return this.name;
+  getUserName(): string {
+    return this.user.name;
   }
 
   getEmail(): string {
-    return this.email;
+    return this.user.email;
   }
 
   getPassword(): string {
-    return this.password;
+    return this.user.password;
+  }
+
+  getRole(): string {
+    return this.user.role;
   }
 
   setId(id: number) {
-    this.id = id;
+    this.user.id = id;
   }
 
-  setName(name: string) {
-    this.name = name;
+  setUserName(userName: string) {
+    this.user.name = userName;
   }
 
   setEmail(email: string) {
-    this.email = email;
+    this.user.email = email;
   }
 
   setPassword(password: string) {
-    this.password = password;
+    this.user.password = password;
+  }
+
+  setRole(role: string) {
+    this.user.role = role;
   }
 }

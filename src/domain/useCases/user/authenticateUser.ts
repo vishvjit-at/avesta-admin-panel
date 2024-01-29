@@ -7,17 +7,17 @@ export class AuthenticateUser {
   constructor(public repo: IUserRepo, public tokenService: ITokenService, public redis: ISessionStore) {}
 
   async execute(aParams: IAuthReqDto) {
-    const adminDetails = await this.repo.getAdminByEmailAndPassword(aParams);
+    const userDetails = await this.repo.getUserByEmailAndPassword(aParams);
 
-    if (!adminDetails) {
+    if (!userDetails) {
       throw new Error("unauthorized!");
     }
 
-    const key = `session-${adminDetails.getId()}`;
+    const key = `session-${userDetails.getId()}`;
 
     await this.redis.storeData(key, null);
 
-    const token = this.tokenService.getToken(adminDetails);
+    const token = this.tokenService.getToken(userDetails);
 
     return token;
   }
