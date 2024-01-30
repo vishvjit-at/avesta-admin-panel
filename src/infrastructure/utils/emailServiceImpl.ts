@@ -7,6 +7,7 @@ export class EmailServiceImpl implements IEmailService {
     try {
       const apiKey = process.env.SEND_GRID_EMAIL_KEY as string;
       sgMail.setApiKey(apiKey);
+      console.log("");
       await sgMail.send({ from: params.emailFrom, to: params.emailTo, html: params.body, subject: params.subject });
     } catch (error: any) {
       throw new Error(error?.message);
