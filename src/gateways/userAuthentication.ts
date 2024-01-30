@@ -6,13 +6,13 @@ import { SessionStoreRedisImpl } from "../infrastructure/repository/redis/sessio
 
 export class UserAuthentication {
   Login(aParams: IAuthReqDto) {
-    const iUserRepoImplementation = new UserRepoImpl();
-    const iJwtTokenServiceImplementation = new TokenServiceImpl();
-    const iRedisImplementation = new SessionStoreRedisImpl();
+    const userRepoImplementation = new UserRepoImpl();
+    const jwtTokenServiceImplementation = new TokenServiceImpl();
+    const redisImplementation = new SessionStoreRedisImpl();
     const userUseCase = new AuthenticateUser(
-      iUserRepoImplementation,
-      iJwtTokenServiceImplementation,
-      iRedisImplementation
+      userRepoImplementation,
+      jwtTokenServiceImplementation,
+      redisImplementation
     );
     return userUseCase.execute(aParams);
   }

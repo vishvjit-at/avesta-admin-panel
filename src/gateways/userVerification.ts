@@ -4,9 +4,9 @@ import { TokenServiceImpl } from "../infrastructure/utils/tokenServiceImpl";
 
 export class UserVerification {
   verify(token: string) {
-    const iJwtTokenServiceImplementation = new TokenServiceImpl();
-    const iRedisImplementation = new SessionStoreRedisImpl();
-    const iVerifyUser = new VerifyUser(iJwtTokenServiceImplementation, iRedisImplementation);
-    return iVerifyUser.execute(token);
+    const jwtTokenServiceImplementation = new TokenServiceImpl();
+    const redisImplementation = new SessionStoreRedisImpl();
+    const verifyUser = new VerifyUser(jwtTokenServiceImplementation, redisImplementation);
+    return verifyUser.execute(token);
   }
 }
