@@ -8,7 +8,7 @@ export class UserAuthController {
         email: req.body.email as string,
         password: req.body.password as string
       });
-      res.json({ data: token });
+      res.json({ success: true, data: token });
     } catch (error) {
       res.status(401).send();
     }

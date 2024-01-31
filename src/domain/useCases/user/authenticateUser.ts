@@ -15,7 +15,7 @@ export class AuthenticateUser {
 
     const key = `session-${userDetails.getId()}`;
 
-    await this.redis.storeData(key, null);
+    await this.redis.storeData(key, 24 * 60 * 60, null);
 
     const token = this.tokenService.getToken(userDetails);
 
