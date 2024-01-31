@@ -7,7 +7,7 @@ export class VerifyOtpController {
       const token = await new VerifyOtp().verify(req.body.token, Number(req.body.otp));
       res.json({ success: true, data: { token } });
     } catch (error: any) {
-      res.status(500).send();
+      res.status(401).send({ success: false, message: error.message });
     }
   }
 }

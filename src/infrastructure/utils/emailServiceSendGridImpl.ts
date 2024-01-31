@@ -2,7 +2,7 @@ require("dotenv").config();
 import { IEmailService } from "../../domain/interfaces/utils/emailService";
 import sgMail from "@sendgrid/mail";
 
-export class EmailServiceImpl implements IEmailService {
+export class EmailServiceSendGridImpl implements IEmailService {
   async sendEmail(params: { emailTo: string; emailFrom: string; body: string; subject?: string }): Promise<void> {
     try {
       const apiKey = process.env.SEND_GRID_EMAIL_KEY as string;

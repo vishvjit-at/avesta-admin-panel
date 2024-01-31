@@ -9,8 +9,8 @@ export class UserAuthController {
         password: req.body.password as string
       });
       res.json({ success: true, data: token });
-    } catch (error) {
-      res.status(401).send();
+    } catch (error: any) {
+      res.status(401).send({ success: false, message: error.message });
     }
   }
 }

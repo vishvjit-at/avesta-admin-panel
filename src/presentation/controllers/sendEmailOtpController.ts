@@ -6,8 +6,8 @@ export class SendEmailOtpController {
     try {
       const token = await new SendEmailOtp().send(req.body.email);
       res.json({ success: true, data: { token } });
-    } catch (error) {
-      res.status(401).send();
+    } catch (error: any) {
+      res.status(401).send({ success: false, message: error.message });
     }
   }
 }
