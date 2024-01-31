@@ -9,7 +9,8 @@ export class userMapper {
         name: data.dataValues.userName,
         email: data.dataValues.email,
         password: data.dataValues.password,
-        role: data.dataValues.id
+        role: data.dataValues.role,
+        id: data.dataValues.id
       });
       users.push(user);
     });
