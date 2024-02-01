@@ -1,5 +1,7 @@
+//import { getFeatureFlagResDTO } from "../dtos/getFeatureFlagResDTO";
+
 import { FeatureFlagEntity } from "../../entities/featureFlagEntity";
 
 export interface IFeatureFlagRepo {
-  getFeatureFlagByEnvironment(environment: string): Promise<FeatureFlagEntity[]>;
+  getEnabledFeatureFlags(environmentId: number): Promise<FeatureFlagEntity[]>;
 }
