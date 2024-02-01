@@ -1,0 +1,59 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "avesta-admin-panel",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+
+  "runArgs": ["--network=host", "--name=avesta-admin-panel"],
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+      "plugins": "zsh-autosuggestions zsh-completions zsh-syntax-highlighting",
+      "omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions https://github.com/zsh-users/zsh-syntax-highlighting"
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  //   "forwardPorts": [3000],
+
+  // "portsAttributes": {
+  //   "3000": {
+  //     "label": "Development Server"
+  //   }
+  // },
+
+  // Initialize command is run on host machine before the container is created
+  "initializeCommand": "./.devcontainer/initial.sh ${containerWorkspaceFolderBasename}",
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postStartCommand": "./.devcontainer/postStart.sh",
+
+  // Mount copies your existing zsh or bash history
+  "mounts": [
+    "source=${containerWorkspaceFolderBasename}-bashhistory,target=/commandhistory,type=volume",
+    "source=/home/${localEnv:USER}/.ssh,target=/home/node/.ssh,readonly,type=bind"
+  ],
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": ["eamodio.gitlens", "esbenp.prettier-vscode", "streetsidesoftware.code-spell-checker"],
+      "settings": {
+        "typescript.preferences.importModuleSpecifier": "project-relative",
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "[jsonc]": {
+          "editor.quickSuggestions": {
+            "strings": true
+          },
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "cSpell.enabledLanguageIds": ["!json", "!jsonc", "javascript", "typescript"]
+      }
+    }
+  },
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "node"
+}
