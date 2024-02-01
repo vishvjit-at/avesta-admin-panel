@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { IUserRepo } from "../interfaces/repos/userRepo";
 import { ISessionStore } from "../interfaces/repos/sessionStore";
 import { IOtpService } from "../interfaces/utils/otpService";
@@ -20,12 +21,12 @@ export class SendOtp {
 
     const otp = this.otpService.getOtp();
     const token = this.randomUniqueTokenService.getToken();
-    const emailBody = this.getEmailBody(otp);
+    const body = this.getEmailBody(otp);
     await Promise.all([
       this.storeOtpDetailsInRedis({ email: user.getEmail(), otp, token }),
-      this.emailService.sendEmail({
-        body: emailBody,
-        emailFrom: "vishvjitsinh797@gmail.com",
+      this.emailService.send({
+        body: body,
+        emailFrom: process.env.SMTP_EMAIL_FROM as string,
         emailTo: user.getEmail(),
         subject: "Admin-panel login otp"
       })
