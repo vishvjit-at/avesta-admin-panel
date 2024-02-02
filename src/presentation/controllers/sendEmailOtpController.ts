@@ -1,12 +1,12 @@
-import { ILoginWithOtpReq } from "../../domain/interfaces/dtos/userDto";
+import { ISendOtpReqDto } from "../../domain/interfaces/dtos/userDto";
 import { SendEmailOtp } from "../../gateways/sendEmailOtp";
 import { NextFunction, Response } from "express";
-import { IBodyValidatedRequest } from "../expressRequest.interface";
+import { IBodyValidatedRequest } from "../interface/expressRequest.interface";
 
 export class SendEmailOtpController {
-  public static async send(req: IBodyValidatedRequest<ILoginWithOtpReq>, res: Response, next: NextFunction) {
+  public static async send(req: IBodyValidatedRequest<ISendOtpReqDto>, res: Response, next: NextFunction) {
     try {
-      const token = await new SendEmailOtp().send(req.body.email);
+      const token = await new SendEmailOtp().send(req.body);
       res.json({ success: true, data: { token } });
       return;
     } catch (error: any) {

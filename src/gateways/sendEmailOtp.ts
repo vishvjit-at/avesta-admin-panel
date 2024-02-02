@@ -4,9 +4,10 @@ import { OtpServiceImpl } from "../infrastructure/utils/otpServideImpl";
 import { RandomUniqueTokenServiceImpl } from "../infrastructure/utils/randomUniqueTokenServiceImpl";
 import { UserRepoImpl } from "../infrastructure/repository/mysql/userRepoImpl";
 import { EmailServiceSesEmailSenderImpl } from "../infrastructure/utils/emailServiceSesEmailSenderImpl";
+import { ISendOtpReqDto } from "../domain/interfaces/dtos/userDto";
 
 export class SendEmailOtp {
-  send(email: string) {
+  send(aParams: ISendOtpReqDto) {
     const redisImplementation = new SessionStoreRedisImpl();
     const otpServiceImpl = new OtpServiceImpl();
     const randomUniqueTokenServiceImpl = new RandomUniqueTokenServiceImpl();
@@ -20,6 +21,6 @@ export class SendEmailOtp {
       userRepo,
       emailServiceImpl
     );
-    return sendOtpUseCase.execute(email);
+    return sendOtpUseCase.execute(aParams.email);
   }
 }
