@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { UserAuthController } from "../controllers/userAuthController";
-import { SendEmailOtpController } from "../controllers/sendEmailOtpController";
+import { UserAuthenticationController } from "../controllers/userAuthenticationController";
 import { VerifyOtpController } from "../controllers/verifyOtpController";
 import { ReSendEmailOtpController } from "../controllers/reSendEmailOtpController";
+import { createValidator } from "express-joi-validation";
+import UserValidation from "../validation/user.validation";
+
+const validator = createValidator({ passError: true });
+
 const router = Router();
 
-router.post("/login", UserAuthController.userLogin);
-router.post("/send/otp", SendEmailOtpController.send);
+router.post("/send/otp", validator.body(UserValidation.authenticateUser), UserAuthenticationController.send);
 router.post("/verify/otp", VerifyOtpController.verify);
 router.post("/resend/otp", ReSendEmailOtpController.send);
 
