@@ -8,7 +8,6 @@ export class userMapper {
       const user = new UserEntity({
         name: data.dataValues.userName,
         email: data.dataValues.email,
-        password: data.dataValues.password,
         role: data.dataValues.role,
         id: data.dataValues.id
       });
