@@ -1,11 +1,11 @@
-import { FeatureFlagEntity } from "src/featureFlagService/domain/entities/featureFlagEntity";
+import { FeatureFlagEntity } from "../../../domain/entities/featureFlagEntity";
 
 export class featureFlagMapper {
-  toDomain(raw: any): FeatureFlagEntity {
+  public static toDomain(raw: any): FeatureFlagEntity {
     const key = raw.dataValues.key as string;
-    const isEnabled = raw.dataValues.isEnabled as boolean;
+    const projectId = raw.dataValues.project_id as number;
     const id = raw.dataValues.id as number;
 
-    return new FeatureFlagEntity(key, isEnabled, id);
+    return new FeatureFlagEntity(key, projectId, id);
   }
 }
