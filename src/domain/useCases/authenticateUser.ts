@@ -5,7 +5,7 @@ import { IOtpService } from "../interfaces/utils/otpService";
 import { IRandomUniqueTokenService } from "../interfaces/utils/randomUniqueTokenService";
 import { IEmailService } from "../interfaces/utils/emailService";
 
-export class SendOtp {
+export class AuthenticateUser {
   constructor(
     public redis: ISessionStore,
     public otpService: IOtpService,

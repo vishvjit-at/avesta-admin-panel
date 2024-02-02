@@ -1,19 +1,26 @@
-import { IAuthReqDto } from "../domain/interfaces/dtos/userDto";
-import { AuthenticateUser } from "../domain/useCases/user/authenticateUser";
-import { TokenServiceImpl } from "../infrastructure/utils/tokenServiceImpl";
-import { UserRepoImpl } from "../infrastructure/repository/mysql/userRepoImpl";
+import { AuthenticateUser } from "../domain/useCases/authenticateUser";
 import { SessionStoreRedisImpl } from "../infrastructure/repository/redis/sessionStoreRedisImpl";
+import { OtpServiceImpl } from "../infrastructure/utils/otpServideImpl";
+import { RandomUniqueTokenServiceImpl } from "../infrastructure/utils/randomUniqueTokenServiceImpl";
+import { UserRepoImpl } from "../infrastructure/repository/mysql/userRepoImpl";
+import { EmailServiceSesEmailSenderImpl } from "../infrastructure/utils/emailServiceSesEmailSenderImpl";
+import { ISendOtpReqDto } from "../domain/interfaces/dtos/userDto";
 
 export class UserAuthentication {
-  Login(aParams: IAuthReqDto) {
-    const userRepoImplementation = new UserRepoImpl();
-    const jwtTokenServiceImplementation = new TokenServiceImpl();
+  authenticate(aParams: ISendOtpReqDto) {
     const redisImplementation = new SessionStoreRedisImpl();
-    const userUseCase = new AuthenticateUser(
-      userRepoImplementation,
-      jwtTokenServiceImplementation,
-      redisImplementation
+    const otpServiceImpl = new OtpServiceImpl();
+    const randomUniqueTokenServiceImpl = new RandomUniqueTokenServiceImpl();
+    const emailServiceImpl = new EmailServiceSesEmailSenderImpl();
+    const userRepo = new UserRepoImpl();
+
+    const sendOtpUseCase = new AuthenticateUser(
+      redisImplementation,
+      otpServiceImpl,
+      randomUniqueTokenServiceImpl,
+      userRepo,
+      emailServiceImpl
     );
-    return userUseCase.execute(aParams);
+    return sendOtpUseCase.execute(aParams.email);
   }
 }
