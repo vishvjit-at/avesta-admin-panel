@@ -1,44 +1,45 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { SuburbGateway } from "../../gateways/suburbGateway";
-import { ISuburbDto } from "src/domain/interfaces/dtos/suburbDto";
+import {ICreateSuburbDto } from "../../domain/interfaces/dtos/suburbDto";
 export class SuburbController {
-    public async createSuburb(req: Request, res: Response): Promise<void> {
+    public static async createSuburb(req: Request, res: Response,next:NextFunction): Promise<void> {
         try {
-            const name = req.body.name as string;
+            const suburbName = req.body.suburbName as string;
             const postcode = req.body.postcode as unknown as number;
             const state = req.body.state as string;
             const id = req.body.id as unknown as number;
+            const token= req.body.token as string
 
-            const data: ISuburbDto = {
-                name,
+            const data: ICreateSuburbDto = {
+                suburbName,
                 postcode,
                 state,
-                id
+                id,token
             }
-            const suburbId = await new SuburbGateway().createSuburb(data);
-            res.status(201).json({ message: `Data successfully added at ID: ${suburbId}` });
+            const suburbCreateResponse = await new SuburbGateway().createSuburb(data);
+            res.json({success:true, message: `Successfully Created Suburb at Id: ${suburbCreateResponse}` });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error });
+            next(error)
         }
 
     }
 
-    public async updateSuburbById(req: Request, res: Response): Promise<void> {
+    public static async updateSuburbById(req: Request, res: Response): Promise<void> {
         try {
-            const name = req.body.name as string;
+            const suburbName = req.body.suburbName as string;
             const postcode = req.body.postcode as unknown as number;
             const state = req.body.state as string;
             const id = req.body.id as unknown as number;
 
-            const data: ISuburbDto = {
-                name,
+            const data: ICreateSuburbDto = {
+                 suburbName,
                 postcode,
                 state,
                 id
             }
             const status = await new SuburbGateway().updateSuburbById(data);
-            res.status(201).json({ message: `Data successfully updated status: ${status}` });
+            res.status(201).json({ success:true, message: `Data successfully updated status: ${status}` });
         } catch (error) {
             console.log(error);
             res.status(500).json({ error });
@@ -47,7 +48,7 @@ export class SuburbController {
     }
 
 
-    public async getAllSuburb(req: Request, res: Response): Promise<void> {
+    public static async getAllSuburb(req: Request, res: Response): Promise<void> {
         try {
             const suburbs = await new SuburbGateway().getAllsuburb();
             res.status(200).json(suburbs);
@@ -57,7 +58,7 @@ export class SuburbController {
         }
     }
 
-    public async getSuburbById(req: Request, res: Response): Promise<void> {
+    public static async getSuburbById(req: Request, res: Response): Promise<void> {
         try {
             const idParam: string = req.params.id as string;
             const id: number = parseInt(idParam, 10);
@@ -82,7 +83,7 @@ export class SuburbController {
         }
     }
 
-    public async deleteSuburbById(req: Request, res: Response): Promise<void> {
+    public static async deleteSuburbById(req: Request, res: Response): Promise<void> {
         try {
             const idParam: string = req.params.id as string;
             const id: number = parseInt(idParam, 10);

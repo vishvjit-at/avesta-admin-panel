@@ -2,8 +2,13 @@ import { SuburbEntity } from "../../../domain/entities/suburbEntity";
 import { IsuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
 import { SuburbMapper } from "../mappers/suburbMapper";
 import { SuburbModel } from "../sequelize/models/suburbModel";
+import { TokenServiceImpl } from "../../utils/tokenServiceImpl";
 
 export class SuburbRepoImplementation implements IsuburbRepo {
+    tokenService: TokenServiceImpl;
+    constructor() {
+      this.tokenService = new TokenServiceImpl();
+    }
     async getSuburbById(id: number): Promise<SuburbEntity | undefined> {
         const suburbFromDb = await SuburbModel.findOne({ where: { id } });
 
@@ -15,10 +20,16 @@ export class SuburbRepoImplementation implements IsuburbRepo {
     }
 
     async createSuburb(suburb: SuburbEntity): Promise<number | undefined> {
+        const createdBy=this.tokenService.getDataFromToken<{ id:number}>(suburb.getToken());
+        console.log(createdBy?.id)
+        console.log(createdBy)
+        console.log(suburb.getToken())
+    
         const insertSuburbdata = await SuburbModel.create({
             name: suburb.getName(),
             postcode: suburb.getPostcode(),
             state: suburb.getState(),
+            createdBy:createdBy?.id,
             id: suburb.getId()
         })
         return insertSuburbdata.dataValues.id;
