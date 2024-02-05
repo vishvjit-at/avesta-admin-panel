@@ -18,23 +18,10 @@ UserModel.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    deletedAt: {
-      type: DataTypes.DATE,
-      allowNull: true
+    },password:{
+      type :DataTypes.STRING ,
+      allowNull:false
     }
   },
-  { tableName: "users", sequelize, timestamps: false }
+  { tableName: "logintable", sequelize, timestamps: false }
 );

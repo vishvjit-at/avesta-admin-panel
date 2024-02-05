@@ -1,6 +1,10 @@
 export interface ISuburbDto {
-    name: string;
+    suburbName: string;
     postcode: number;
     state: string;
     id?: number;
 }
+
+export interface ICreateSuburbDto extends ISuburbDto{
+    token?:string
+   }

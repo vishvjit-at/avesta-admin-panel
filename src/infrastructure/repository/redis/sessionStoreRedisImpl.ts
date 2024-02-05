@@ -1,12 +1,14 @@
 import { RedisClientType, createClient } from "redis";
 import { ISessionStore } from "../../../domain/interfaces/repos/sessionStore";
+require("dotenv").config();
 
 export class SessionStoreRedisImpl implements ISessionStore {
   private static clientInstance: RedisClientType;
 
   public static async getClientInstance(): Promise<RedisClientType> {
     if (!this.clientInstance) {
-      this.clientInstance = createClient({ url: "redis://localhost:6380" });
+      const {REDIS_CONNECTION_URL}= process.env
+      this.clientInstance = createClient({ url:REDIS_CONNECTION_URL });
       this.clientInstance.on("error", (err) => console.error("Redis Client Error", err));
       await this.clientInstance.connect();
     }
