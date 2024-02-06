@@ -1,5 +1,5 @@
 import { SuburbEntity } from "../../entities/suburbEntity";
-import { ISuburbDto } from "../../interfaces/dtos/suburbDto"
+import { ICreateSuburbDto, ISuburbDto } from "../../interfaces/dtos/suburbDto"
 import { IsuburbRepo } from "../../interfaces/repos/suburbRepo";
 
 export class UpdateSuburbById {

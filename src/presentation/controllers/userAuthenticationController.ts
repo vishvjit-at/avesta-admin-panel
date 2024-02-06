@@ -10,7 +10,8 @@ export class UserAuthenticationController {
       res.json({ success: true, data: { token } });
       return;
     } catch (error: any) {
-      res.status(401).send({ success: false, message: error.message });
+      next(error)
+      // res.status(401).send({ success: false, message: error.message });
     }
   }
 }
