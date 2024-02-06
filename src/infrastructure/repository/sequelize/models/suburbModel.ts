@@ -11,7 +11,7 @@ SuburbModel.init(
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    suburbName: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -25,7 +25,7 @@ SuburbModel.init(
     },
     createdBy: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     }
   },
   { tableName: "suburb", sequelize, timestamps: false }

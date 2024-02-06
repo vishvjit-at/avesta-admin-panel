@@ -1,4 +1,4 @@
-import {ICreateSuburbDto } from "../interfaces/dtos/suburbDto";
+import { ICreateSuburbDto } from "../interfaces/dtos/suburbDto";
 import { EStates } from "../useCases/suburb/createSuburb";
 
 export class SuburbEntity {
@@ -7,7 +7,7 @@ export class SuburbEntity {
   getId(): number | undefined {
     return this.suburbs.id;
   }
-  getName(): string {
+  getSuburbName(): string {
     return this.suburbs.suburbName;
   }
   getState(): string {
@@ -19,7 +19,7 @@ export class SuburbEntity {
   setId(id: number) {
     this.suburbs.id = id;
   }
-  setName(name: string) {
+  setSuburbName(name: string) {
     this.suburbs.suburbName = name;
   }
   setState(state: string) {
@@ -28,42 +28,22 @@ export class SuburbEntity {
   setPostcode(postcode: number) {
     this.suburbs.postcode = postcode;
   }
-  getToken(): string|undefined {
-    return this.suburbs.token;
-  }
 
-  static isSuburbValid(suburb: string): boolean|string{
-    let specialCharacterRegex=/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~0-9]/
-   
-if(specialCharacterRegex.test(suburb)){
-        return 'Special characters are not allowed in the Suburb field.'
-      
-    }else{
-        return true
-        
-    }
-    ;
-  }
+  static isSuburbValid(suburb: string): boolean {
+    let specialCharacterRegex = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~0-9]/;
 
-  static isPostCodeValid(postcode: number): string|boolean {
-  
-     if(postcode < 1000 || postcode > 9999){
-       
-        return 'Postcode is not Valid'
-    }else {
-      
+    if (specialCharacterRegex.test(suburb)) {
+      return false;
+    } else {
       return true;
     }
   }
-  static isStateValid(state: string): boolean|string {
-  
-    if (!state || (!(state in EStates)) ) {
-      
-      return "State name is not valid";
-    }  else {
-      
+
+  static isPostCodeValid(postcode: number): boolean {
+    if (postcode < 1000 || postcode > 9999) {
+      return false;
+    } else {
       return true;
     }
   }
 }
-
