@@ -96,4 +96,16 @@ export class SuburbController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
+
+  public static async getSuburbsWithPagination(req:Request,res:Response):Promise<void>{
+    try{
+    const pageNumber=parseInt(req.query.pageNumber as string) as number
+    const pageSize =parseInt(req.query.pageSize as string) as number
+    const suburbs=await new SuburbGateway().getSuburbWithPagination(pageNumber,pageSize)
+   
+    res.json({ success: true, message: suburbs});
+    }catch(error){
+        res.json({sucess:false,message:error})
+    }
+  }
 }

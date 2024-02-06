@@ -5,6 +5,7 @@ import { GetAllSuburb } from "../domain/useCases/suburb/getAllSuburb";
 import { GetSuburbById } from "../domain/useCases/suburb/getSuburbById";
 import { SuburbRepoImplementation } from "../infrastructure/repository/mysql/suburbRepo";
 import { ISuburbDto } from "../domain/interfaces/dtos/suburbDto";
+import { GetSuburbsWithPagination } from "../domain/useCases/suburb/getSuburbWithPagination";
 
 export class SuburbGateway {
   suburbRepo: SuburbRepoImplementation;
@@ -38,5 +39,10 @@ export class SuburbGateway {
   deleteSuburbById(id: number) {
     const deleteSuburbById = new DeleteSuburbById(this.suburbRepo);
     return deleteSuburbById.execute(id);
+  }
+
+  getSuburbWithPagination(pageNumber:number,pageSize:number){
+    const getSuburbsWithPagination=new GetSuburbsWithPagination(this.suburbRepo);
+    return getSuburbsWithPagination.execute(pageNumber, pageSize);
   }
 }

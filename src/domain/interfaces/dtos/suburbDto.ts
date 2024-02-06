@@ -5,6 +5,3 @@ export interface ISuburbDto {
   id?: number;
 }
 
-export interface ICreateSuburbDto extends ISuburbDto {
-  token?: string;
-}

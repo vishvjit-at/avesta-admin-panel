@@ -1,8 +1,8 @@
-import { ICreateSuburbDto } from "../interfaces/dtos/suburbDto";
-import { EStates } from "../useCases/suburb/createSuburb";
+import { ISuburbDto } from "../interfaces/dtos/suburbDto";
+
 
 export class SuburbEntity {
-  constructor(private suburbs: ICreateSuburbDto) {}
+  constructor(private suburbs: ISuburbDto) {}
 
   getId(): number | undefined {
     return this.suburbs.id;

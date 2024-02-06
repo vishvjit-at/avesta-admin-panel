@@ -72,6 +72,22 @@ export class SuburbRepoImplementation implements IsuburbRepo {
     }
   }
 
+  async getSuburbWithPage(pageNumber: number, pageSize: number): Promise<{ totalPages: number, content: SuburbModel[]}> {
+      let page=0
+      let size=10
+      if(pageNumber>0){
+        page=pageNumber-1
+      }
+      if(pageSize>0 && pageSize<10){
+        size=pageSize
+      }
+      const limit=size;
+      const offset=(page* size);
+      
+      const suburbs= await  SuburbModel.findAndCountAll({offset: offset,limit: limit});
+      return {totalPages: Math.ceil(suburbs.count/size),content:suburbs.rows}
+  }
+
   async isSuburbExist(suburb: SuburbEntity): Promise<boolean> {
     let existSuburb = await SuburbModel.findAll({
       where: { postcode: suburb.getPostcode(), suburbName: suburb.getSuburbName() }
