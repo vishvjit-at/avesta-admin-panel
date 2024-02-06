@@ -6,9 +6,8 @@ export class userMapper {
     const users: UserEntity[] = [];
     usersFromDb.forEach((data) => {
       const user = new UserEntity({
-        name: data.dataValues.userName,
+        name: data.dataValues.name,
         email: data.dataValues.email,
-        role: data.dataValues.role,
         id: data.dataValues.id
       });
       users.push(user);
