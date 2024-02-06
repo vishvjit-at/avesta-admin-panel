@@ -14,26 +14,33 @@ export enum EStates {
 }
 export class CreateSuburb {
   constructor(private repo: IsuburbRepo) {}
-  async execute(token:string,aParmas: ISuburbDto) {
+  async execute(token: string, aParmas: ISuburbDto) {
     try {
-      let isValidDetails = this.isValidSuburbDetails(aParmas);
-      if (!isValidDetails) {
-        throw new Error("Invalid Suburb details!!");
+      const parmas = new SuburbEntity(aParmas);
+
+      let isSuburbExist = await this.repo.isSuburbExist(parmas);
+
+      if (isSuburbExist) {
+        throw new Error("This suburb already exist");
       } else {
-        const parmas = new SuburbEntity(aParmas);
-        const suburbResult = await this.repo.createSuburb(token,parmas);
-        return suburbResult;
+        let isValidDetails = this.isValidSuburbDetails(aParmas);
+        if (!isValidDetails) {
+          throw new Error("Invalid Suburb details!!");
+        } else {
+          const suburbResult = await this.repo.createSuburb(token, parmas);
+          return suburbResult;
+        }
       }
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
   isValidSuburbDetails(aParams: ISuburbDto): boolean {
-    const { suburbName, postcode} = aParams;
+    const { suburbName, postcode } = aParams;
     const isvalidSub = SuburbEntity.isSuburbValid(suburbName);
     const isValidPostCode = SuburbEntity.isPostCodeValid(postcode);
-   
-    return isvalidSub && isValidPostCode ;
+
+    return isvalidSub && isValidPostCode;
   }
 }

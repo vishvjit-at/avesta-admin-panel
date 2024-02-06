@@ -6,4 +6,5 @@ export interface IsuburbRepo {
     createSuburb(token:string,suburbDetails: SuburbEntity): Promise<number | undefined|string>;
     getAllSuburb(): Promise<SuburbEntity[]>;
     updateSuburbById(suburbDetails: SuburbEntity): Promise<boolean>;
+    isSuburbExist(suburb:SuburbEntity):Promise<boolean>
 }

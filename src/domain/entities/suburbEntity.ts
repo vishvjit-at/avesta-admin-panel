@@ -29,7 +29,7 @@ export class SuburbEntity {
   }
 
   static isSuburbValid(suburb: string): boolean {
-    let specialCharacterRegex = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~0-9]/;
+    let specialCharacterRegex = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~0-9]/;
 
     if (specialCharacterRegex.test(suburb)) {
       return false;

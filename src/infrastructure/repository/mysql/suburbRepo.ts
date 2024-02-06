@@ -20,26 +20,16 @@ export class SuburbRepoImplementation implements IsuburbRepo {
   }
 
   async createSuburb(token: string, suburb: SuburbEntity): Promise<number | undefined | string> {
-    try {
-      const createdBy = this.tokenService.getDataFromToken<{ id: number }>(token);
-      let existSuburb = await SuburbModel.findAll({
-        where: { postcode: suburb.getPostcode(), suburbName: suburb.getSuburbName() }
-      });
+    const createdBy = this.tokenService.getDataFromToken<{ id: number }>(token);
 
-      if (existSuburb.length > 0) {
-        throw new Error("Suburb Already Exists");
-      }
-      const insertSuburbdata = await SuburbModel.create({
-        suburbName: suburb.getSuburbName(),
-        postcode: suburb.getPostcode(),
-        state: suburb.getState(),
-        createdBy: createdBy?.id,
-        id: suburb.getId()
-      });
-      return insertSuburbdata.dataValues.id;
-    } catch (error: any) {
-      return error.message;
-    }
+    const insertSuburbdata = await SuburbModel.create({
+      suburbName: suburb.getSuburbName(),
+      postcode: suburb.getPostcode(),
+      state: suburb.getState(),
+      createdBy: createdBy?.id,
+      id: suburb.getId()
+    });
+    return insertSuburbdata.dataValues.id;
   }
   async updateSuburbById(suburb: SuburbEntity): Promise<boolean> {
     const updateSuburbdata = await SuburbModel.update(
@@ -80,5 +70,16 @@ export class SuburbRepoImplementation implements IsuburbRepo {
     } else {
       return "Suburb not found.";
     }
+  }
+
+  async isSuburbExist(suburb: SuburbEntity): Promise<boolean> {
+    let existSuburb = await SuburbModel.findAll({
+      where: { postcode: suburb.getPostcode(), suburbName: suburb.getSuburbName() }
+    });
+
+    if (existSuburb.length > 0) {
+      return true;
+    }
+    return false;
   }
 }
