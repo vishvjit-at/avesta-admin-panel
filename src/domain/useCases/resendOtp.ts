@@ -23,10 +23,14 @@ export class ReSendOtp {
     const otp = this.otpService.getOtp();
     const body = this.getEmailBody(otp);
     await Promise.all([
-      this.redis.storeData(token, 10 * 60, {
-        ...dataFromRedis,
-        otp: otp,
-        sendOtpAttempt: dataFromRedis.sendOtpAttempt + 1
+      this.redis.storeData({
+        key: token,
+        timeToLive: 10 * 60,
+        data: {
+          ...dataFromRedis,
+          otp: otp,
+          sendOtpAttempt: dataFromRedis.sendOtpAttempt + 1
+        }
       }),
       this.emailService.send({
         body: body,

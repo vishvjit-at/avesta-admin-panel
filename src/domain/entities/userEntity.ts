@@ -1,5 +1,5 @@
 export class UserEntity {
-  constructor(private user: { name: string; email: string; role: string; id?: number }) {}
+  constructor(private user: { name: string; email: string; id?: number }) {}
 
   getId(): number | undefined {
     return this.user.id;
@@ -13,23 +13,15 @@ export class UserEntity {
     return this.user.email;
   }
 
-  getRole(): string {
-    return this.user.role;
-  }
-
   setId(id: number) {
     this.user.id = id;
   }
 
-  setUserName(userName: string) {
-    this.user.name = userName;
+  setUserName(name: string) {
+    this.user.name = name;
   }
 
   setEmail(email: string) {
     this.user.email = email;
-  }
-
-  setRole(role: string) {
-    this.user.role = role;
   }
 }

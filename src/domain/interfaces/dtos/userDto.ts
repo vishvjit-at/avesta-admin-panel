@@ -9,3 +9,7 @@ export interface IReSendOtpReqDto {
 export interface IVerifyOtpReqDto extends IReSendOtpReqDto {
   otp: number;
 }
+
+export interface IUserAuthorizationDto extends IReSendOtpReqDto {
+  permission: string;
+}

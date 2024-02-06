@@ -9,12 +9,12 @@ export class AuthMiddleware {
       const isUserValid = await userVerification.verify(req.query.token as string);
 
       if (!isUserValid) {
-        res.status(401).send();
+        res.status(401).send({ success: false, message: "sorry!, you are not authenticated!" });
+      } else {
+        next();
       }
-
-      next();
     } catch (error) {
-      res.status(401).send();
+      res.status(401).send({ success: false, message: "sorry!, you are not authenticated!" });
     }
   }
 }

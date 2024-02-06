@@ -19,13 +19,13 @@ export class SessionStoreRedisImpl implements ISessionStore {
     return Boolean(data);
   }
 
-  async storeData(key: string, timeToLive?: number, data?: any): Promise<void> {
+  async storeData(aParams: { key: string; timeToLive?: number; data?: any }): Promise<void> {
     const client = await SessionStoreRedisImpl.getClientInstance();
     let parsedData = "";
-    if (data) {
-      parsedData = JSON.stringify(data);
+    if (aParams.data) {
+      parsedData = JSON.stringify(aParams.data);
     }
-    await client.set(key, parsedData, { EX: timeToLive });
+    await client.set(aParams.key, parsedData, { EX: aParams.timeToLive });
   }
   async getData<T>(key: string): Promise<T | undefined> {
     const client = await SessionStoreRedisImpl.getClientInstance();

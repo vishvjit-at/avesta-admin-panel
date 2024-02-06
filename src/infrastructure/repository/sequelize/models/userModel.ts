@@ -11,15 +11,11 @@ UserModel.init(
       autoIncrement: true,
       primaryKey: true
     },
-    userName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    role: {
       type: DataTypes.STRING,
       allowNull: false
     },

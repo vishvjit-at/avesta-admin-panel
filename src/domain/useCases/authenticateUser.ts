@@ -42,7 +42,7 @@ export class AuthenticateUser {
       email: params.email
     };
 
-    await this.redis.storeData(params.token, 10 * 60, data);
+    await this.redis.storeData({ key: params.token, timeToLive: 10 * 60, data });
   }
   private getEmailBody(otp: string) {
     return `<strong>Your otp for logging in :</strong>

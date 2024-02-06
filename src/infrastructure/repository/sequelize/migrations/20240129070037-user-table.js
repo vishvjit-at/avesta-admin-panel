@@ -8,19 +8,11 @@
       primaryKey: true,
       autoIncrement: true
     },
-    userName: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false
     },
     email: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    password: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    role: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -46,4 +38,4 @@
 
 }
 
-module.exports={up,down}
+module.exports = { up, down };

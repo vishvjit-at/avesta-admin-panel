@@ -27,17 +27,24 @@ export class VerifyOtpAndToken {
     };
 
     if (Number(dataFromRedis.otp) !== otp) {
-      await this.redis.storeData(token, 10 * 60, dataToStoreOnError);
+      await this.redis.storeData({ key: token, timeToLive: 10 * 60, data: dataToStoreOnError });
       throw new Error("Wrong Otp!!!!");
     }
 
     const userFromDb = await this.repo.getUserByEmail(dataFromRedis.email);
 
     if (!userFromDb) {
-      await this.redis.storeData(token, 10 * 60, dataToStoreOnError);
+      await this.redis.storeData({ key: token, timeToLive: 10 * 60, data: dataToStoreOnError });
       throw new Error("Invalid token!!!");
     }
-    await this.redis.delRecord(token);
+
+    const [userPermissions] = await Promise.all([
+      this.repo.getUserPermissionsById(userFromDb.getId()),
+      this.redis.delRecord(token)
+    ]);
+
+    await this.redis.storeData({ key: `permissions-${userFromDb.getId()}`, data: { permissions: userPermissions } });
+    await this.redis.storeData({ key: `session-${userFromDb.getId()}` });
 
     const jwtToken = this.tokenService.getToken(userFromDb);
 
