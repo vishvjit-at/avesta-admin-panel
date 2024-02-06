@@ -4,7 +4,7 @@ import { DeleteSuburbById } from "../domain/useCases/suburb/deleteSuburb";
 import { GetAllSuburb } from "../domain/useCases/suburb/getAllSuburb";
 import { GetSuburbById } from "../domain/useCases/suburb/getSuburbById";
 import { SuburbRepoImplementation } from "../infrastructure/repository/mysql/suburbRepo";
-import { ISuburbDto,ICreateSuburbDto } from "../domain/interfaces/dtos/suburbDto"
+import { ISuburbDto} from "../domain/interfaces/dtos/suburbDto"
 
 export class SuburbGateway {
     suburbRepo: SuburbRepoImplementation;
@@ -13,14 +13,14 @@ export class SuburbGateway {
         this.suburbRepo = new SuburbRepoImplementation();
     }
 
-    createSuburb(suburb: ICreateSuburbDto) {
+    createSuburb(token:string,suburb: ISuburbDto) {
         const createSuburb = new CreateSuburb(this.suburbRepo);
 
-        return createSuburb.execute(suburb);
+        return createSuburb.execute(token,suburb);
 
     }
 
-    updateSuburbById(suburb: ICreateSuburbDto) {
+    updateSuburbById(suburb: ISuburbDto) {
         const updateSuburb = new UpdateSuburbById(this.suburbRepo);
 
         return updateSuburb.execute(suburb);

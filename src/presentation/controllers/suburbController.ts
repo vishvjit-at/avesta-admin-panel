@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { SuburbGateway } from "../../gateways/suburbGateway";
-import {ICreateSuburbDto } from "../../domain/interfaces/dtos/suburbDto";
+import {ISuburbDto } from "../../domain/interfaces/dtos/suburbDto";
 export class SuburbController {
     public static async createSuburb(req: Request, res: Response,next:NextFunction): Promise<void> {
         try {
@@ -10,17 +10,18 @@ export class SuburbController {
             const id = req.body.id as unknown as number;
             const token= req.body.token as string
 
-            const data: ICreateSuburbDto = {
+            const data: ISuburbDto = {
                 suburbName,
                 postcode,
                 state,
-                id,token
+                id
             }
-            const suburbCreateResponse = await new SuburbGateway().createSuburb(data);
-            res.json({success:true, message: `Successfully Created Suburb at Id: ${suburbCreateResponse}` });
-        } catch (error) {
+            const suburbCreateResponse = await new SuburbGateway().createSuburb(token,data);
+            res.json({success:true, message: `${suburbCreateResponse}` });
+        } catch (error:any) {
             console.log(error);
             next(error)
+            res.status(401).send({ success: false, message: error.message });
         }
 
     }
@@ -32,7 +33,7 @@ export class SuburbController {
             const state = req.body.state as string;
             const id = req.body.id as unknown as number;
 
-            const data: ICreateSuburbDto = {
+            const data: ISuburbDto = {
                  suburbName,
                 postcode,
                 state,

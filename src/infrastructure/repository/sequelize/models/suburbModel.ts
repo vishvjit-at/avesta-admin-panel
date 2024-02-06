@@ -11,7 +11,7 @@ SuburbModel.init(
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    suburbName: {
       type: DataTypes.STRING,
       allowNull: false
     },

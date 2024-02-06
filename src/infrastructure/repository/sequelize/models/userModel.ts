@@ -23,5 +23,5 @@ UserModel.init(
       allowNull:false
     }
   },
-  { tableName: "logintable", sequelize, timestamps: false }
+  { tableName: "users", sequelize, timestamps: false }
 );
