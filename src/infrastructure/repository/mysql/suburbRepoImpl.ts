@@ -1,16 +1,17 @@
 import { SuburbEntity } from "../../../domain/entities/suburbEntity";
-import { IsuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
+import { ISuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
 import { SuburbMapper } from "../mappers/suburbMapper";
 import { SuburbModel } from "../sequelize/models/suburbModel";
 import { TokenServiceImpl } from "../../utils/tokenServiceImpl";
+import { IGetPaginationReqDto, ISuburbIdDto } from "src/domain/interfaces/dtos/suburbDto";
 
-export class SuburbRepoImplementation implements IsuburbRepo {
+export class SuburbRepoImpl implements ISuburbRepo {
   tokenService: TokenServiceImpl;
   constructor() {
     this.tokenService = new TokenServiceImpl();
   }
-  async getSuburbById(id: number): Promise<SuburbEntity | undefined> {
-    const suburbFromDb = await SuburbModel.findOne({ where: { id } });
+  async getSuburbById(aParams: ISuburbIdDto): Promise<SuburbEntity | undefined> {
+    const suburbFromDb = await SuburbModel.findOne({ where: { id: aParams.id } });
 
     if (!suburbFromDb) {
       return undefined; // Return undefined when no record is found
@@ -19,25 +20,23 @@ export class SuburbRepoImplementation implements IsuburbRepo {
     return SuburbMapper.toDomain(suburbFromDb) as SuburbEntity;
   }
 
-  async createSuburb(token: string, suburb: SuburbEntity): Promise<number | undefined | string> {
+  async createSuburb(token: string, suburb: SuburbEntity) {
     const createdBy = this.tokenService.getDataFromToken<{ id: number }>(token);
 
-    const insertSuburbdata = await SuburbModel.create({
+    await SuburbModel.create({
       suburbName: suburb.getSuburbName(),
       postcode: suburb.getPostcode(),
       state: suburb.getState(),
       createdBy: createdBy?.id,
       id: suburb.getId()
     });
-    return insertSuburbdata.dataValues.id;
   }
   async updateSuburbById(suburb: SuburbEntity): Promise<boolean> {
     const updateSuburbdata = await SuburbModel.update(
       {
-        subrubName: suburb.getSuburbName(),
+        suburbName: suburb.getSuburbName(),
         postcode: suburb.getPostcode(),
-        state: suburb.getState(),
-        id: suburb.getId()
+        state: suburb.getState()
       },
       {
         where: {
@@ -52,24 +51,31 @@ export class SuburbRepoImplementation implements IsuburbRepo {
   async getAllSuburb(): Promise<SuburbEntity[]> {
     const suburbFromDb = await SuburbModel.findAll();
     if (suburbFromDb.length === 0) {
-      // Handle the case where no data matches the query
+      
       return [];
     }
     return SuburbMapper.toDomain(suburbFromDb) as SuburbEntity[];
   }
 
-  async deleteSuburbById(id: number): Promise<string | undefined> {
+  async deleteSuburbById(aParams: ISuburbIdDto): Promise<number | undefined> {
     const deleteSuburbdata = await SuburbModel.destroy({
       where: {
-        id: id
+        id: aParams.id
       }
     });
 
-    if (deleteSuburbdata > 0) {
-      return `Suburb with ID ${id} data deleted successfully.`;
-    } else {
-      return "Suburb not found.";
-    }
+    return deleteSuburbdata;
+  }
+
+  async getSuburbWithPagination(
+    aParams: IGetPaginationReqDto
+  ): Promise<{ total: number; data: SuburbModel[] }> {
+    const page = aParams.page > 1 ? aParams.page : 1;
+    const size = aParams.size > 0 && aParams.size < 10 ? aParams.size : 10;
+    const offset = (page - 1) * size;
+    const suburbs = await SuburbModel.findAndCountAll({ offset: offset, limit: Number(size) });
+
+    return { total: suburbs.count, data: suburbs.rows };
   }
 
   async isSuburbExist(suburb: SuburbEntity): Promise<boolean> {
@@ -77,9 +83,9 @@ export class SuburbRepoImplementation implements IsuburbRepo {
       where: { postcode: suburb.getPostcode(), suburbName: suburb.getSuburbName() }
     });
 
-    if (existSuburb.length > 0) {
-      return true;
+    if (!existSuburb.length) {
+      return false;
     }
-    return false;
+    return true;
   }
 }

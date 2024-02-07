@@ -1,99 +1,88 @@
 import { NextFunction, Request, Response } from "express";
 import { SuburbGateway } from "../../gateways/suburbGateway";
-import { ISuburbDto } from "../../domain/interfaces/dtos/suburbDto";
-export class SuburbController {
-  public static async createSuburb(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-      const suburbName = req.body.suburbName as string;
-      const postcode = req.body.postcode as unknown as number;
-      const state = req.body.state as string;
-      const id = req.body.id as unknown as number;
-      const token = req.body.token as string;
+import {
+  IGetPaginationReqDto,
+  ISuburbDto,
+  ICreateSuburbReqDto,
+  ISuburbIdDto
+} from "../../domain/interfaces/dtos/suburbDto";
+import {
+  IBodyValidatedRequest,
+  IQueryValidatedRequest,
+  IParamsValidatedRequest
+} from "../interface/expressRequest.interface";
 
-      const data: ISuburbDto = {
-        suburbName,
-        postcode,
-        state,
-        id
-      };
-      const suburbCreateResponse = await new SuburbGateway().createSuburb(token, data);
+
+export class SuburbController {
+  public static async createSuburb(
+    req: IBodyValidatedRequest<ICreateSuburbReqDto>,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const suburbCreateResponse = await new SuburbGateway().createSuburb(req.body);
       res.json({ success: true, message: suburbCreateResponse });
     } catch (error: any) {
       next(error);
-      res.status(401).send({ success: false, message: error.message });
     }
   }
 
-  public static async updateSuburbById(req: Request, res: Response): Promise<void> {
+  public static async updateSuburbById(req: IBodyValidatedRequest<ISuburbDto>, res: Response): Promise<void> {
     try {
-      const suburbName = req.body.suburbName as string;
-      const postcode = req.body.postcode as unknown as number;
-      const state = req.body.state as string;
-      const id = req.body.id as unknown as number;
-
-      const data: ISuburbDto = {
-        suburbName,
-        postcode,
-        state,
-        id
-      };
-      const status = await new SuburbGateway().updateSuburbById(data);
-      res.status(201).json({ success: true, message: `Data successfully updated status: ${status}` });
+      const status = await new SuburbGateway().updateSuburbById(req.body);
+      res.status(201).json({ success: true, message: `Data updated status: ${status}` });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(500).json({ success: false, message: error });
     }
   }
 
   public static async getAllSuburb(req: Request, res: Response): Promise<void> {
     try {
       const suburbs = await new SuburbGateway().getAllsuburb();
-      res.status(200).json(suburbs);
+      res.status(200).json({success:true, data: suburbs});
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(500).json({success:false,error: error });
     }
   }
 
-  public static async getSuburbById(req: Request, res: Response): Promise<void> {
+  public static async getSuburbById(req: IParamsValidatedRequest<ISuburbIdDto>, res: Response): Promise<void> {
     try {
-      const idParam: string = req.params.id as string;
-      const id: number = parseInt(idParam, 10);
-
-      if (isNaN(id)) {
-        res.status(400).json({ error: "Invalid id parameter" });
+      const suburb = await new SuburbGateway().getSuburbById(req.params);
+      if (!suburb) {
+        res.status(404).json({success:false, error: "Suburb not found" });
         return;
       }
 
-      const user = await new SuburbGateway().getSuburbById(id);
-      if (!user) {
-        res.status(404).json({ error: "User not found" });
-        return;
-      }
-
-      res.status(200).json(user);
+      res.status(200).json({success:true ,suburb});
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({success:false, error: "Internal Server Error" });
     }
   }
 
-  public static async deleteSuburbById(req: Request, res: Response): Promise<void> {
+  public static async deleteSuburbById(req: IParamsValidatedRequest<ISuburbIdDto>, res: Response): Promise<void> {
     try {
-      const idParam: string = req.params.id as string;
-      const id: number = parseInt(idParam, 10);
-
-      if (isNaN(id)) {
-        res.status(400).json({ error: "Invalid id parameter" });
+      const suburbResponseFromDb = await new SuburbGateway().deleteSuburbById(req.params);
+      if (suburbResponseFromDb==0) {
+        res.status(404).json({success:false, error: "Suburb not found" });
         return;
       }
 
-      const user = await new SuburbGateway().deleteSuburbById(id);
-      if (!user) {
-        res.status(404).json({ error: "User not found" });
-        return;
-      }
-
-      res.status(200).json(user);
+      res.status(200).json({success:true, message: `Total Rows Affected: ${suburbResponseFromDb}`});
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      res.status(500).json({success:false, error:  "Internal Server Error" });
+    }
+  }
+
+  public static async getSuburbsWithPagination(
+    req: IQueryValidatedRequest<IGetPaginationReqDto>,
+    res: Response
+  ): Promise<void> {
+    try {
+      const suburbs = await new SuburbGateway().getSuburbWithPagination(req.query);
+
+      res.json({ success: true, message: suburbs });
+    } catch (error) {
+      res.json({ sucess: false, message: error });
     }
   }
 }

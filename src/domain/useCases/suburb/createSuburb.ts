@@ -1,6 +1,6 @@
 import { SuburbEntity } from "../../entities/suburbEntity";
-import { ISuburbDto } from "../../interfaces/dtos/suburbDto";
-import { IsuburbRepo } from "../../interfaces/repos/suburbRepo";
+import { ICreateSuburbReqDto, ISuburbDto } from "../../interfaces/dtos/suburbDto";
+import { ISuburbRepo } from "../../interfaces/repos/suburbRepo";
 export enum EStates {
   act = "act",
   nsw = "nsw",
@@ -13,26 +13,22 @@ export enum EStates {
   ot = "ot"
 }
 export class CreateSuburb {
-  constructor(private repo: IsuburbRepo) {}
-  async execute(token: string, aParmas: ISuburbDto) {
-    try {
-      const parmas = new SuburbEntity(aParmas);
+  constructor(private repo: ISuburbRepo) {}
+  async execute(aParams:ICreateSuburbReqDto) {
+    const parmas = new SuburbEntity({postcode:aParams.postcode,state:aParams.state,suburbName:aParams.suburbName});
 
-      let isSuburbExist = await this.repo.isSuburbExist(parmas);
+    let isSuburbExist = await this.repo.isSuburbExist(parmas);
 
-      if (isSuburbExist) {
-        throw new Error("This suburb already exist");
+    if (isSuburbExist) {
+      throw new Error("This suburb already exist");
+    } else {
+      let isValidDetails = this.isValidSuburbDetails(aParams);
+      if (!isValidDetails) {
+        throw new Error("Invalid Suburb details!!");
       } else {
-        let isValidDetails = this.isValidSuburbDetails(aParmas);
-        if (!isValidDetails) {
-          throw new Error("Invalid Suburb details!!");
-        } else {
-          const suburbResult = await this.repo.createSuburb(token, parmas);
-          return suburbResult;
-        }
+        const suburbResult = await this.repo.createSuburb(aParams.token, parmas);
+        return suburbResult;
       }
-    } catch (error) {
-      return error;
     }
   }
 

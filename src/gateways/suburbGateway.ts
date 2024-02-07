@@ -3,20 +3,21 @@ import { UpdateSuburbById } from "../domain/useCases/suburb/updateSuburbById";
 import { DeleteSuburbById } from "../domain/useCases/suburb/deleteSuburb";
 import { GetAllSuburb } from "../domain/useCases/suburb/getAllSuburb";
 import { GetSuburbById } from "../domain/useCases/suburb/getSuburbById";
-import { SuburbRepoImplementation } from "../infrastructure/repository/mysql/suburbRepo";
-import { ISuburbDto } from "../domain/interfaces/dtos/suburbDto";
+import { SuburbRepoImpl } from "../infrastructure/repository/mysql/suburbRepoImpl";
+import { ICreateSuburbReqDto, IGetPaginationReqDto, ISuburbDto, ISuburbIdDto } from "../domain/interfaces/dtos/suburbDto";
+import { GetSuburbsWithPagination } from "../domain/useCases/suburb/getSuburbWithPagination";
 
 export class SuburbGateway {
-  suburbRepo: SuburbRepoImplementation;
+  suburbRepo: SuburbRepoImpl;
 
   constructor() {
-    this.suburbRepo = new SuburbRepoImplementation();
+    this.suburbRepo = new SuburbRepoImpl();
   }
 
-  createSuburb(token: string, suburb: ISuburbDto) {
+  createSuburb(aParams:ICreateSuburbReqDto) {
     const createSuburb = new CreateSuburb(this.suburbRepo);
 
-    return createSuburb.execute(token, suburb);
+    return createSuburb.execute(aParams);
   }
 
   updateSuburbById(suburb: ISuburbDto) {
@@ -30,13 +31,20 @@ export class SuburbGateway {
     return getAllsuburb.execute();
   }
 
-  getSuburbById(id: number) {
+  getSuburbById(aParams: ISuburbIdDto) {
+    
     const getSuburbById = new GetSuburbById(this.suburbRepo);
-    return getSuburbById.execute(id);
+    return getSuburbById.execute(aParams);
   }
 
-  deleteSuburbById(id: number) {
+  deleteSuburbById(aParams:ISuburbIdDto) {
     const deleteSuburbById = new DeleteSuburbById(this.suburbRepo);
-    return deleteSuburbById.execute(id);
+    return deleteSuburbById.execute(aParams);
+  }
+
+  getSuburbWithPagination(aParams:IGetPaginationReqDto){
+    const getSuburbsWithPagination=new GetSuburbsWithPagination(this.suburbRepo);
+    
+    return getSuburbsWithPagination.execute(aParams);
   }
 }
