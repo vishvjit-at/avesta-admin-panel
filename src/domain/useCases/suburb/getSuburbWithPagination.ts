@@ -1,13 +1,13 @@
-import { IsuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
+import { IGetPaginationReqDto } from "src/domain/interfaces/dtos/suburbDto";
+import { ISuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
 export class GetSuburbsWithPagination{
-    constructor(private repo:IsuburbRepo){}
-    async execute(pageNumber:number,pageSize:number){
+    constructor(private repo:ISuburbRepo){}
+    async execute(aParams:IGetPaginationReqDto){
         try {
-            const suburbs=await this.repo.getSuburbWithPage(pageNumber,pageSize);
+            const suburbs=await this.repo.getSuburbWithPagination(aParams);   
             return  suburbs;
         } catch (error) {
-            throw new Error("Error With Pagination")
-            
+            throw new Error("Internal server Error") 
         }
     }
 }

@@ -1,13 +1,13 @@
-import { IsuburbRepo } from "../../interfaces/repos/suburbRepo";
+import { ISuburbRepo } from "../../interfaces/repos/suburbRepo";
 export class GetAllSuburb {
-    constructor(private repo: IsuburbRepo) { }
+    constructor(private repo: ISuburbRepo) { }
 
     async execute() {
         try {
             const suburbResult = await this.repo.getAllSuburb();
             return suburbResult;
         } catch (error) {
-            throw new Error("error");
+            throw new Error("Internal Server");
         }
 
     }

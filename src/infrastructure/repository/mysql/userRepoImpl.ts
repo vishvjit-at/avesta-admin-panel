@@ -2,7 +2,7 @@ import { UserEntity } from "../../../domain/entities/userEntity";
 import { UserModel } from "../sequelize/models/userModel";
 import { userMapper } from "../mappers/userMapper";
 import { IUserRepo } from "../../../domain/interfaces/repos/userRepo";
-import { Sequelize } from "sequelize";
+
 
 export class UserRepoImpl implements IUserRepo {
   async getUserByEmail(email: string): Promise<UserEntity | undefined> {

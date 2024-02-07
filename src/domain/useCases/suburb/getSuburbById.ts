@@ -1,10 +1,11 @@
-import { IsuburbRepo } from "../../interfaces/repos/suburbRepo";
+import { ISuburbIdDto } from "src/domain/interfaces/dtos/suburbDto";
+import { ISuburbRepo } from "../../interfaces/repos/suburbRepo";
 export class GetSuburbById {
-    constructor(private repo: IsuburbRepo) { }
+    constructor(private repo: ISuburbRepo) { }
 
-    async execute(id: number) {
+    async execute(aParams: ISuburbIdDto) {
         try {
-            const suburbResult = await this.repo.getSuburbById(id);
+            const suburbResult = await this.repo.getSuburbById(aParams);
             return suburbResult;
         } catch (error) {
             throw new Error("error");
