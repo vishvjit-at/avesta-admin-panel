@@ -3,7 +3,7 @@ import { ISuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
 import { SuburbMapper } from "../mappers/suburbMapper";
 import { SuburbModel } from "../sequelize/models/suburbModel";
 import { TokenServiceImpl } from "../../utils/tokenServiceImpl";
-import { IGetPaginationReqDto, ISuburbIdDto } from "src/domain/interfaces/dtos/suburbDto";
+import { IGetPaginationReqDto, ISuburbIdDto } from "../../../domain/interfaces/dtos/suburbDto";
 
 export class SuburbRepoImpl implements ISuburbRepo {
   tokenService: TokenServiceImpl;

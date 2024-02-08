@@ -2,7 +2,7 @@ import express, { NextFunction } from "express";
 import { Router as userRouter } from "./routes/userAuthRoutes";
 import { Router as homePageRouter } from "./routes/homePageRoutes";
 import { Router as suburb } from "./routes/suburbRoutes";
-import { Router as featureFlagRouter } from "../featureFlagService/presentation/routes/featureFlagRoutes";
+import { Router as featureFlagRouter } from "../../featureFlagService/presentation/routes/featureFlagRoutes";
 import { Router as jobRouter } from "./routes/jobRoutes";
 
 const app = express();
