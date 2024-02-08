@@ -1,5 +1,5 @@
+import { ProjectModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/projectModel";
 import { IProjectRepository } from "../../../domain/interfaces/repos/projectRepo";
-import { ProjectModel } from "../../../../infrastructure/repository/sequelize/models/projectModel";
 
 export class ProjectRepository implements IProjectRepository {
   async getProjectIdByName(projectName: string): Promise<number | null> {

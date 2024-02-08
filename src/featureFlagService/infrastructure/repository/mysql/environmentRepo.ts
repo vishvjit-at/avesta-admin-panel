@@ -1,5 +1,5 @@
+import { EnvironmentModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/environmentModel";
 import { IEnvironmentRepository } from "../../../domain/interfaces/repos/environmentRepo";
-import { EnvironmentModel } from "../../../../infrastructure/repository/sequelize/models/environmentModel";
 
 export class EnvironmentRepository implements IEnvironmentRepository {
   async getEnvironmentIdByName(projectId: number, environmentName: string): Promise<number | null> {
