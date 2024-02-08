@@ -1,8 +1,8 @@
 import { IFeatureFlagRepo } from "../../../domain/interfaces/repos/featureFlagRepo";
 import { featureFlagMapper } from "../mappers/featureFlagMapper";
 import { FeatureFlagEntity } from "src/featureFlagService/domain/entities/featureFlagEntity";
-import { FeatureFlagStatusModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/featureFlagStatusModel";
-import { FeatureFlagModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/featureFlagModel";
+import { FeatureFlagStatusModel } from "../../../../infrastructure/repository/sequelize/models/featureFlagStatusModel";
+import { FeatureFlagModel } from "../../../../infrastructure/repository/sequelize/models/featureFlagModel";
 
 export class FeatureFlagRepo implements IFeatureFlagRepo {
   async getEnabledFeatureFlags(environmentId: number): Promise<FeatureFlagEntity[]> {

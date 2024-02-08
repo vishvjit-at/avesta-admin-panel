@@ -1,10 +1,10 @@
 import { SuburbEntity } from "../../../domain/entities/suburbEntity";
-import { IsuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
+import { IsuburbRepo as ISuburbRepo } from "../../../domain/interfaces/repos/suburbRepo";
 import { SuburbMapper } from "../mappers/suburbMapper";
 import { SuburbModel } from "../sequelize/models/suburbModel";
 import { TokenServiceImpl } from "../../utils/tokenServiceImpl";
 
-export class SuburbRepoImplementation implements IsuburbRepo {
+export class SuburbRepoImpl implements ISuburbRepo {
   tokenService: TokenServiceImpl;
   constructor() {
     this.tokenService = new TokenServiceImpl();

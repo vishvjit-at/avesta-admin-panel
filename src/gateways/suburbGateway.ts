@@ -3,14 +3,14 @@ import { UpdateSuburbById } from "../domain/useCases/suburb/updateSuburbById";
 import { DeleteSuburbById } from "../domain/useCases/suburb/deleteSuburb";
 import { GetAllSuburb } from "../domain/useCases/suburb/getAllSuburb";
 import { GetSuburbById } from "../domain/useCases/suburb/getSuburbById";
-import { SuburbRepoImplementation } from "../infrastructure/repository/mysql/suburbRepo";
+import { SuburbRepoImpl } from "../infrastructure/repository/mysql/suburbRepoImpl";
 import { ISuburbDto } from "../domain/interfaces/dtos/suburbDto";
 
 export class SuburbGateway {
-  suburbRepo: SuburbRepoImplementation;
+  suburbRepo: SuburbRepoImpl;
 
   constructor() {
-    this.suburbRepo = new SuburbRepoImplementation();
+    this.suburbRepo = new SuburbRepoImpl();
   }
 
   createSuburb(token: string, suburb: ISuburbDto) {

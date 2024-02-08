@@ -1,4 +1,4 @@
-import { ProjectModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/projectModel";
+import { ProjectModel } from "../../../../infrastructure/repository/sequelize/models/projectModel";
 import { IProjectRepository } from "../../../domain/interfaces/repos/projectRepo";
 
 export class ProjectRepository implements IProjectRepository {

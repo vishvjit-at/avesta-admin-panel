@@ -1,4 +1,4 @@
-import { EnvironmentModel } from "../../../../adminPanel/infrastructure/repository/sequelize/models/environmentModel";
+import { EnvironmentModel } from "../../../../infrastructure/repository/sequelize/models/environmentModel";
 import { IEnvironmentRepository } from "../../../domain/interfaces/repos/environmentRepo";
 
 export class EnvironmentRepository implements IEnvironmentRepository {
