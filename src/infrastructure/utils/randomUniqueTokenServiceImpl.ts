@@ -1,5 +1,5 @@
-import { IRandomUniqueTokenService } from "src/domain/interfaces/utils/randomUniqueTokenService";
 import crypto from "crypto";
+import { IRandomUniqueTokenService } from "../../domain/interfaces/utils/randomUniqueTokenService";
 
 export class RandomUniqueTokenServiceImpl implements IRandomUniqueTokenService {
   getToken(): string {

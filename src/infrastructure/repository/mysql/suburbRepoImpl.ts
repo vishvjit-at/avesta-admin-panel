@@ -51,7 +51,6 @@ export class SuburbRepoImpl implements ISuburbRepo {
   async getAllSuburb(): Promise<SuburbEntity[]> {
     const suburbFromDb = await SuburbModel.findAll();
     if (suburbFromDb.length === 0) {
-      
       return [];
     }
     return SuburbMapper.toDomain(suburbFromDb) as SuburbEntity[];
@@ -67,9 +66,7 @@ export class SuburbRepoImpl implements ISuburbRepo {
     return deleteSuburbdata;
   }
 
-  async getSuburbWithPagination(
-    aParams: IGetPaginationReqDto
-  ): Promise<{ total: number; data: SuburbModel[] }> {
+  async getSuburbWithPagination(aParams: IGetPaginationReqDto): Promise<{ total: number; data: SuburbModel[] }> {
     const page = aParams.page > 1 ? aParams.page : 1;
     const size = aParams.size > 0 && aParams.size < 10 ? aParams.size : 10;
     const offset = (page - 1) * size;

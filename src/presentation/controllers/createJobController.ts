@@ -1,17 +1,17 @@
-import { ReSendEmailOtp } from "../../gateways/reSendEmailOtp";
 import { NextFunction, Response } from "express";
+import { ICreateJobDto } from "../../domain/interfaces/dtos/jobDto";
 import { IBodyValidatedRequest } from "../interface/expressRequest.interface";
-import { IReSendOtpReqDto } from "../../domain/interfaces/dtos/userDto";
+import { CreateJobGateway } from "../../gateways/createJob";
 
-export class ReSendEmailOtpController {
+export class CreateJobController {
   public static async send(
-    req: IBodyValidatedRequest<IReSendOtpReqDto>,
+    req: IBodyValidatedRequest<ICreateJobDto>,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      await new ReSendEmailOtp().send(req.body);
-      res.json({ success: true });
+      const data = await new CreateJobGateway().send(req.body);
+      res.json({ success: true, data: data });
     } catch (error: any) {
       res.status(401).send({ success: false, message: error.message });
     }

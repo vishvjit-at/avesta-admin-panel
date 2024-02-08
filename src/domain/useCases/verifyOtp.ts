@@ -1,10 +1,12 @@
 import { IUserRepo } from "../interfaces/repos/userRepo";
 import { ISessionStore } from "../interfaces/repos/sessionStore";
 import { ITokenService } from "../interfaces/utils/tokenService";
+import { PropicDataSuburbImpl } from "../../infrastructure/utils/propicDataSuburbImpl";
 
 export class VerifyOtpAndToken {
   constructor(public redis: ISessionStore, public repo: IUserRepo, public tokenService: ITokenService) {}
   async execute(token: string, otp: number) {
+    const data = await new PropicDataSuburbImpl().getPropertiesWithPagination({ state: "vic", suburbName: "richmond" });
     const dataFromRedis = await this.redis.getData<{
       otp: string;
       sendOtpAttempt: number;

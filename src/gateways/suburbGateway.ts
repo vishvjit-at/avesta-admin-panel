@@ -4,7 +4,12 @@ import { DeleteSuburbById } from "../domain/useCases/suburb/deleteSuburb";
 import { GetAllSuburb } from "../domain/useCases/suburb/getAllSuburb";
 import { GetSuburbById } from "../domain/useCases/suburb/getSuburbById";
 import { SuburbRepoImpl } from "../infrastructure/repository/mysql/suburbRepoImpl";
-import { ICreateSuburbReqDto, IGetPaginationReqDto, ISuburbDto, ISuburbIdDto } from "../domain/interfaces/dtos/suburbDto";
+import {
+  ICreateSuburbReqDto,
+  IGetPaginationReqDto,
+  ISuburbDto,
+  ISuburbIdDto
+} from "../domain/interfaces/dtos/suburbDto";
 import { GetSuburbsWithPagination } from "../domain/useCases/suburb/getSuburbWithPagination";
 
 export class SuburbGateway {
@@ -14,7 +19,7 @@ export class SuburbGateway {
     this.suburbRepo = new SuburbRepoImpl();
   }
 
-  createSuburb(aParams:ICreateSuburbReqDto) {
+  createSuburb(aParams: ICreateSuburbReqDto) {
     const createSuburb = new CreateSuburb(this.suburbRepo);
 
     return createSuburb.execute(aParams);
@@ -32,19 +37,18 @@ export class SuburbGateway {
   }
 
   getSuburbById(aParams: ISuburbIdDto) {
-    
     const getSuburbById = new GetSuburbById(this.suburbRepo);
     return getSuburbById.execute(aParams);
   }
 
-  deleteSuburbById(aParams:ISuburbIdDto) {
+  deleteSuburbById(aParams: ISuburbIdDto) {
     const deleteSuburbById = new DeleteSuburbById(this.suburbRepo);
     return deleteSuburbById.execute(aParams);
   }
 
-  getSuburbWithPagination(aParams:IGetPaginationReqDto){
-    const getSuburbsWithPagination=new GetSuburbsWithPagination(this.suburbRepo);
-    
+  getSuburbWithPagination(aParams: IGetPaginationReqDto) {
+    const getSuburbsWithPagination = new GetSuburbsWithPagination(this.suburbRepo);
+
     return getSuburbsWithPagination.execute(aParams);
   }
 }
