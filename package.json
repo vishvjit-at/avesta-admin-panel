@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "node_modules/typescript/bin/tsc",
-    "dev": "cross-env NODE_ENV=development ts-node-dev --transpile-only --project ./tsconfig.json --respawn  src/presentation/app.ts",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --transpile-only --project ./tsconfig.json --respawn  src/adminPanel/presentation/app.ts",
     "migrate:dev": "npm run build && cross-env NODE_ENV=development dotenv -e .env sequelize db:migrate",
     "migrate:dev:undo": "npm run build && cross-env NODE_ENV=development dotenv -e .env sequelize db:migrate:undo"
   },

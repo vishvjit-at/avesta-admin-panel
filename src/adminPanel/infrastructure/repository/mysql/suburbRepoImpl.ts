@@ -4,6 +4,8 @@ import { SuburbMapper } from "../mappers/suburbMapper";
 import { SuburbModel } from "../sequelize/models/suburbModel";
 import { TokenServiceImpl } from "../../utils/tokenServiceImpl";
 import { IGetPaginationReqDto, ISuburbIdDto } from "../../../domain/interfaces/dtos/suburbDto";
+import { EStates } from "../../../../adminPanel/domain/useCases/suburb/createSuburb";
+import { QueryTypes } from "sequelize";
 
 export class SuburbRepoImpl implements ISuburbRepo {
   tokenService: TokenServiceImpl;
@@ -66,13 +68,59 @@ export class SuburbRepoImpl implements ISuburbRepo {
     return deleteSuburbdata;
   }
 
-  async getSuburbWithPagination(aParams: IGetPaginationReqDto): Promise<{ total: number; data: SuburbModel[] }> {
+  async getSuburbWithPagination(
+    aParams: IGetPaginationReqDto
+  ): Promise<{ total: number | undefined; data: SuburbModel[] | string[] }> {
     const page = aParams.page > 1 ? aParams.page : 1;
     const size = aParams.size > 0 && aParams.size < 10 ? aParams.size : 10;
     const offset = (page - 1) * size;
-    const suburbs = await SuburbModel.findAndCountAll({ offset: offset, limit: Number(size) });
 
-    return { total: suburbs.count, data: suburbs.rows };
+
+    if (!aParams.suburbName && !aParams.state) {
+      const suburbs = await SuburbModel.findAndCountAll({ offset: offset, limit: Number(size) });
+      return { total: suburbs.count, data: suburbs.rows };
+    }
+
+    if (aParams.suburbName) {
+      const suburbs = await SuburbModel.sequelize?.query(
+        `SELECT * FROM suburb WHERE suburbName LIKE '${aParams.suburbName}%'`,
+        {
+          type: QueryTypes.SELECT,
+          replacements: {
+            limit: Number(size),
+            offset: offset
+          }
+        }
+      );
+
+      return { total: suburbs?.length, data: suburbs as unknown as string[] };
+    }
+
+
+    if (aParams.state) {
+      const suburbs = await SuburbModel.sequelize?.query(`SELECT * FROM suburb WHERE state='${aParams.state}'`, {
+        type: QueryTypes.SELECT,
+        replacements: {
+          limit: Number(size),
+          offset: offset
+        }
+      });
+
+      return { total: suburbs?.length, data: suburbs as unknown as string[] };
+    }
+
+    
+    const suburbs = await SuburbModel.sequelize?.query(
+      `SELECT * FROM suburb WHERE suburbName LIKE '${aParams.suburbName}%' AND state='${aParams.state}'`,
+      {
+        type: QueryTypes.SELECT,
+        replacements: {
+          limit: Number(size),
+          offset: offset
+        }
+      }
+    );
+    return { total: suburbs?.length, data: suburbs as unknown as string[] };
   }
 
   async isSuburbExist(suburb: SuburbEntity): Promise<boolean> {

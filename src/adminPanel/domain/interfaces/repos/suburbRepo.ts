@@ -9,5 +9,5 @@ export interface ISuburbRepo {
     getAllSuburb(): Promise<SuburbEntity[]>;
     updateSuburbById(suburbDetails: SuburbEntity): Promise<boolean>;
     isSuburbExist(suburb:SuburbEntity):Promise<boolean>
-    getSuburbWithPagination(aParams:IGetPaginationReqDto):Promise<{ total: number, data: SuburbModel[]}>
+    getSuburbWithPagination(aParams:IGetPaginationReqDto):Promise<{ total: number|undefined, data: SuburbModel[]|string[]}>
 }
