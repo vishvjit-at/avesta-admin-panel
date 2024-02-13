@@ -1,9 +1,5 @@
-export interface IAgencyConfigDetails {
-  id: number;
-  name: string;
-  probabilityPercentage: number;
-  propertyCountPerSuburb: number;
-}
+import { AgencyEntity } from "../../entities/agencyEntity";
+
 export interface IAgencyRepo {
-  getAllAgencies(): Promise<IAgencyConfigDetails[]>;
+  getAllAgencies(): Promise<AgencyEntity[]>;
 }

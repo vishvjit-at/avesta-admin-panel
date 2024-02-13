@@ -1,7 +1,7 @@
 "use strict";
 
 async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("jobPropicPredictionData", {
+  await queryInterface.createTable("reportAgencyProperties", {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -40,19 +40,54 @@ async function up(queryInterface, Sequelize) {
       type: Sequelize.DATE,
       allowNull: false
     },
-    jobId: {
+    reportAgencyId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "job",
+        model: "reportAgencies",
         key: "id"
       }
+    },
+    soldDate: {
+      type: Sequelize.DATE,
+      allowNull: true,
+      defaultValue: null
+    },
+    agencyName: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null
+    },
+    agentName: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null
+    },
+    fullAddress: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null
+    },
+    avmValue: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      defaultValue: null
+    },
+    avmHigh: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      defaultValue: null
+    },
+    avmLow: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
+      defaultValue: null
     }
   });
 }
 async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("jobPropicPredictionData");
+  await queryInterface.dropTable("reportAgencyProperties");
 }
 
 module.exports = { up, down };

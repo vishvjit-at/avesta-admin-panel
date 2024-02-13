@@ -1,6 +1,5 @@
 import { ISuburbDto } from "../interfaces/dtos/suburbDto";
 
-
 export class SuburbEntity {
   constructor(private suburbs: ISuburbDto) {}
 

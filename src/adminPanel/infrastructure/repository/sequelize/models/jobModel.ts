@@ -11,23 +11,32 @@ JobModel.init(
       autoIncrement: true,
       primaryKey: true
     },
-    runType: {
-      type: DataTypes.STRING,
-      allowNull: false
+    isEmailSend: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
+      defaultValue: 0
     },
     runBy: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    agencyConfig: {
+    suburbsConfig: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    startAt: {
-      type: DataTypes.DATE,
+    status: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    endAt: {
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    completedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    emailSendAt: {
       type: DataTypes.DATE,
       allowNull: true
     }

@@ -1,7 +1,7 @@
 "use strict";
 
 async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("jobLogs", {
+  await queryInterface.createTable("jobPropicPredictionData", {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -17,19 +17,26 @@ async function up(queryInterface, Sequelize) {
         key: "id"
       }
     },
-    processName: {
+    suburbName: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-      defaultValue: new Date()
+    state: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    postcode: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    jsonData: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   });
 }
 async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("jobLogs");
+  await queryInterface.dropTable("jobPropicPredictionData");
 }
 
 module.exports = { up, down };

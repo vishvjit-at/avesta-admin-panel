@@ -1,33 +1,24 @@
 "use strict";
 
 async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("job", {
+  await queryInterface.createTable("reports", {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    isEmailSend: {
-      type: Sequelize.TINYINT,
-      allowNull: true,
-      defaultValue: 0
-    },
-    runBy: {
+    jobId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "users",
+        model: "job",
         key: "id"
       }
     },
-    suburbsConfig: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    status: {
-      type: Sequelize.STRING,
+    isEmailSent: {
+      type: Sequelize.TINYINT,
       allowNull: false
     },
     createdAt: {
@@ -35,20 +26,19 @@ async function up(queryInterface, Sequelize) {
       allowNull: false,
       defaultValue: new Date()
     },
-    completedAt: {
-      type: Sequelize.DATE,
-      allowNull: true,
-      defaultValue: null
-    },
     emailSendAt: {
       type: Sequelize.DATE,
       allowNull: true,
       defaultValue: null
+    },
+    config: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   });
 }
 async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("job");
+  await queryInterface.dropTable("reports");
 }
 
 module.exports = { up, down };

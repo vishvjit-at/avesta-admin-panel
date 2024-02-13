@@ -6,7 +6,6 @@ import { PropicDataSuburbImpl } from "../../infrastructure/utils/propicDataSubur
 export class VerifyOtpAndToken {
   constructor(public redis: ISessionStore, public repo: IUserRepo, public tokenService: ITokenService) {}
   async execute(token: string, otp: number) {
-    const data = await new PropicDataSuburbImpl().getPropertiesWithPagination({ state: "vic", suburbName: "richmond" });
     const dataFromRedis = await this.redis.getData<{
       otp: string;
       sendOtpAttempt: number;
