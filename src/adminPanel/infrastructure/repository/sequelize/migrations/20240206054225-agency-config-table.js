@@ -1,29 +1,29 @@
 "use strict";
 
 async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("agency", {
+  await queryInterface.createTable("agencyConfig", {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    agencyId: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    probabilityPercentage: {
-      type: Sequelize.INTEGER,
+    email: {
+      type: Sequelize.STRING,
       allowNull: false
     },
-    propertyCountPerSuburb: {
+    agencyConfig: {
       type: Sequelize.INTEGER,
       allowNull: false
     }
   });
 }
 async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("agency");
+  await queryInterface.dropTable("agencyConfig");
 }
 
 module.exports = { up, down };

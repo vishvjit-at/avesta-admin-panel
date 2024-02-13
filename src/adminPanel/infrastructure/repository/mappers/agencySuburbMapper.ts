@@ -1,15 +1,15 @@
 import { SuburbEntity } from "../../../domain/entities/suburbEntity";
-import { AgencySuburbModel } from "../sequelize/models/agencySuburbModel";
+import { ISuburbDto } from "../../../domain/interfaces/dtos/suburbDto";
 
 export class AgencySuburbMapper {
-  static toDomain(usersFromDb: AgencySuburbModel[]) {
+  static toDomain(usersFromDb: ISuburbDto[]) {
     const suburbs: SuburbEntity[] = [];
     usersFromDb.forEach((data) => {
       const suburb = new SuburbEntity({
-        id: data.dataValues.id,
-        suburbName: data.dataValues.name,
-        postcode: data.dataValues.postcode,
-        state: data.dataValues.state
+        id: data.id,
+        suburbName: data.suburbName,
+        postcode: data.postcode,
+        state: data.state
       });
       suburbs.push(suburb);
     });

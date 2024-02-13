@@ -15,12 +15,8 @@ AgencyModel.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    probabilityPercentage: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    propertyCountPerSuburb: {
-      type: DataTypes.INTEGER,
+    email: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   },

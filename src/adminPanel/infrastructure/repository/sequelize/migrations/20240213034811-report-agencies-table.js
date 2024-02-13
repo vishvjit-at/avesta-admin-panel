@@ -1,35 +1,39 @@
 "use strict";
 
 async function up(queryInterface, Sequelize) {
-  await queryInterface.createTable("agencySuburbs", {
+  await queryInterface.createTable("reportAgencies", {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    agencyId: {
+    reportId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "agency",
+        model: "reports",
         key: "id"
       }
     },
-    suburbId: {
+    agencyConfigId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       references: {
-        model: "suburb",
+        model: "agencyConfig",
         key: "id"
       }
+    },
+    agencyConfig: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     }
   });
 }
 async function down(queryInterface, Sequelize) {
-  await queryInterface.dropTable("agencySuburbs");
+  await queryInterface.dropTable("reportAgencies");
 }
 
 module.exports = { up, down };

@@ -23,8 +23,9 @@ export class PropicDataSuburbImpl implements IPropicDataSuburb {
   async getPropertiesWithPagination<T>(aParams: {
     suburbName: string;
     state: string;
+    postcode: number;
     page?: number | undefined;
-  }): Promise<T[]> {
+  }): Promise<T> {
     let url = `${process.env.PROPIC_API_BASE_URL}?suburb=${aParams.suburbName}&state=${aParams.state}`;
 
     if (aParams.page && aParams.page !== 1) {
@@ -38,6 +39,6 @@ export class PropicDataSuburbImpl implements IPropicDataSuburb {
     const data = await axios.get(url, {
       headers
     });
-    return [];
+    return data as T;
   }
 }

@@ -1,9 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 const sequelize = require("../config/config").connection;
 
-export class AgencySuburbModel extends Model {}
+export class DefaultConfigModel extends Model {}
 
-AgencySuburbModel.init(
+DefaultConfigModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,18 +11,10 @@ AgencySuburbModel.init(
       autoIncrement: true,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    postcode: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    state: {
+    config: {
       type: DataTypes.STRING,
       allowNull: false
     }
   },
-  { tableName: "agencySuburbs", sequelize, timestamps: false }
+  { tableName: "defaultConfig", sequelize, timestamps: false }
 );

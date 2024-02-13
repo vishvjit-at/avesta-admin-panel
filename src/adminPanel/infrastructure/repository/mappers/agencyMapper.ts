@@ -1,16 +1,16 @@
-import { IAgencyConfigDetails } from "../../../domain/interfaces/repos/agencyRepo";
+import { AgencyEntity } from "../../../domain/entities/agencyEntity";
 import { AgencyModel } from "../sequelize/models/agencyModel";
 
 export class AgencyMapper {
   static toDomain(usersFromDb: AgencyModel[]) {
-    const agencies: IAgencyConfigDetails[] = [];
+    const agencies: AgencyEntity[] = [];
     usersFromDb.forEach((data) => {
-      const agency = {
+      const agency = new AgencyEntity({
         id: data.dataValues.id,
         name: data.dataValues.name,
-        probabilityPercentage: data.dataValues.probabilityPercentage,
-        propertyCountPerSuburb: data.dataValues.propertyCountPerSuburb
-      } as IAgencyConfigDetails;
+        config: data.dataValues.config,
+        email: data.dataValues.email
+      });
       agencies.push(agency);
     });
     return agencies;
