@@ -8,17 +8,20 @@ import { IDefaultConfigRepo } from "../../interfaces/repos/defaultConfigRepo";
 import { IJobRepo } from "../../interfaces/repos/jobRepo";
 import { IPropicDataSuburb } from "../../interfaces/utils/propicDataBySuburb";
 import { ISuburbProbabilityData } from "../../../infrastructure/utils/propicDataSuburbImpl";
+import { IRevAndClRepo } from "../../interfaces/repos/revAndClRepo";
 
 export class FetchDataAndStoreReports {
   constructor(
     private jobRepo: IJobRepo,
     private agencyRepo: IAgencyRepo,
     private defaultConfigRepo: IDefaultConfigRepo,
-    private propicDataSuburb: IPropicDataSuburb
+    private propicDataSuburb: IPropicDataSuburb,
+    private revAndClRepo: IRevAndClRepo
   ) {}
   async execute(aParams: ICreateJobDto) {
-    const data = await this.agencyRepo.getAllAgencies();
-    const uniqueSuburb = this.getUniqueSuburbs(data);
+    const data = await this.revAndClRepo.getDataByGnafIds([]);
+    const agencies = await this.agencyRepo.getAllAgencies();
+    const uniqueSuburb = this.getUniqueSuburbs(agencies);
 
     const { jobId } = await this.jobRepo.createJob(aParams, JSON.stringify(uniqueSuburb));
     const propicProperties = await this.getPropicPropertiesBySuburbs(uniqueSuburb);

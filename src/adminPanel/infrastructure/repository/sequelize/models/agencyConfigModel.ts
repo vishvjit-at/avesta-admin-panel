@@ -1,9 +1,9 @@
 import { Model, DataTypes } from "sequelize";
 const sequelize = require("../config/config").connection;
 
-export class AgencyModel extends Model {}
+export class AgencyConfigModel extends Model {}
 
-AgencyModel.init(
+AgencyConfigModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,7 +18,11 @@ AgencyModel.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    agencyConfig: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   },
-  { tableName: "agency", sequelize, timestamps: false }
+  { tableName: "agencyConfig", sequelize, timestamps: false }
 );

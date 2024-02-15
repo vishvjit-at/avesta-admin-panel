@@ -1,8 +1,8 @@
 import { AgencyEntity } from "../../../domain/entities/agencyEntity";
-import { AgencyModel } from "../sequelize/models/agencyModel";
+import { AgencyConfigModel } from "../sequelize/models/agencyConfigModel";
 
 export class AgencyMapper {
-  static toDomain(usersFromDb: AgencyModel[]) {
+  static toDomain(usersFromDb: AgencyConfigModel[]) {
     const agencies: AgencyEntity[] = [];
     usersFromDb.forEach((data) => {
       const agency = new AgencyEntity({
