@@ -11,9 +11,19 @@ DefaultConfigModel.init(
       autoIncrement: true,
       primaryKey: true
     },
-    config: {
+    json: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+       get: function() {
+        return JSON.parse(this.getDataValue("json"));
+      },
+      set: function(value) {
+        return this.setDataValue("json", JSON.stringify(value));
+      }
+    },
+    bccEmail:{
+      type:DataTypes.STRING,
+      allowNull:false
     }
   },
   { tableName: "defaultConfig", sequelize, timestamps: false }

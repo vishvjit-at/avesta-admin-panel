@@ -4,7 +4,8 @@ import { Router as homePageRouter } from "./routes/homePageRoutes";
 import { Router as suburb } from "./routes/suburbRoutes";
 import { Router as featureFlagRouter } from "../../featureFlagService/presentation/routes/featureFlagRoutes";
 import { Router as jobRouter } from "./routes/jobRoutes";
-
+import {Router as defaultConfig} from "./routes/defaultConfigRoutes"
+import {Router as revAgency} from './routes/revAgencyRoutes'
 const app = express();
 
 const port = 3000;
@@ -18,6 +19,8 @@ app.use("/homePage", homePageRouter);
 app.use("/suburb", suburb);
 app.use("/feature-flag", featureFlagRouter);
 app.use("/job", jobRouter);
+app.use("/defaultConfig", defaultConfig)
+app.use("/revAgency",revAgency)
 
 app.get("/", (req, res) => res.json({ data: "hello" }));
 
