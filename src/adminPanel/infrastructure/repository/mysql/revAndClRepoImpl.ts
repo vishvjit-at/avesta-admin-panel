@@ -1,6 +1,7 @@
 require("dotenv").config();
 import { Database } from "duckdb-async";
 import { IRevAndClRepo } from "../../../domain/interfaces/repos/revAndClRepo";
+import { IRevReqDto } from "../../../../adminPanel/domain/interfaces/dtos/revAgencyDto";
 
 export class RevAndClRepoImpl implements IRevAndClRepo {
   private static db: Database;
@@ -23,6 +24,28 @@ export class RevAndClRepoImpl implements IRevAndClRepo {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  async getAgencyByName<T>(aParams:IRevReqDto) :Promise<T>{
+    try {
+     
+    const db = await RevAndClRepoImpl.getDbInstance();
+    const data = await db.all(`SELECT id,agencyName FROM rev_db.agencies WHERE agencyName LIKE '%${aParams.agencyName}%' LIMIT 10`);
+    return data as T;
+    }catch(error){
+      return Promise.reject(error);
+    }
+    
+  }
+
+  async getAgentEmailByAgencyId<T>(aParams:IRevReqDto):Promise<T>{
+    try {
+      const db = await RevAndClRepoImpl.getDbInstance();
+      const data = await db.all(`SELECT agn.email,ag.id from rev_db.agencies as ag  JOIN rev_db.agencyAgents  as age ON ag.id=age.agencyId JOIN rev_db.agents as agn ON age.agentId= agn.id where ag.id=${aParams.id}`);
+      return data as T;
+      }catch(error){
+        return Promise.reject(error);
+      }
   }
   static async attachRevDB(db: Database) {
     const { REV_DB_NAME, REV_DB_USER, REV_DB_PASS, REV_DB_HOST } = process.env;
