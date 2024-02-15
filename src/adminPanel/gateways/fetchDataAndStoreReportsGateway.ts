@@ -4,6 +4,7 @@ import { JobRepoImpl } from "../infrastructure/repository/mysql/jobRepoImpl";
 import { AgencyRepoImpl } from "../infrastructure/repository/mysql/agencyRepoImpl";
 import { DefaultConfigRepoImpl } from "../infrastructure/repository/mysql/defaultConfigRepoImpl";
 import { PropicDataSuburbImpl } from "../infrastructure/utils/propicDataSuburbImpl";
+import { RevAndClRepoImpl } from "../infrastructure/repository/mysql/revAndClRepoImpl";
 
 export class FetchDataAndStoreReportsGateway {
   send(aParams: ICreateJobDto) {
@@ -11,11 +12,13 @@ export class FetchDataAndStoreReportsGateway {
     const agencyRepoImpl = new AgencyRepoImpl();
     const defaultConfigRepoImpl = new DefaultConfigRepoImpl();
     const propicDataSuburbImpl = new PropicDataSuburbImpl();
+    const revAndClRepoImpl = new RevAndClRepoImpl();
     const fetchDataAndStoreReports = new FetchDataAndStoreReports(
       jobRepoImpl,
       agencyRepoImpl,
       defaultConfigRepoImpl,
-      propicDataSuburbImpl
+      propicDataSuburbImpl,
+      revAndClRepoImpl
     );
     return fetchDataAndStoreReports.execute(aParams);
   }
