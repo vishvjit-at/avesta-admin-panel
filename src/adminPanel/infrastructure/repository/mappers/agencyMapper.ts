@@ -9,7 +9,8 @@ export class AgencyMapper {
         id: data.id,
         name: data.name,
         config: data.agencyConfig,
-        email: data.email
+        email: data.email,
+        agencyId: data.agencyId
       });
       agencies.push(agency);
     });
