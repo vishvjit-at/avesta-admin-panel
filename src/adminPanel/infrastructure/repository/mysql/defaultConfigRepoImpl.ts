@@ -14,16 +14,11 @@ import { DefaultConfigModel } from "../sequelize/models/defaultConfigModel";
 import { IDefaultConfigReqDto } from "src/adminPanel/domain/interfaces/dtos/defalutConfigDto";
 
 export class DefaultConfigRepoImpl implements IDefaultConfigRepo {
-  async getDefaultConfig(): Promise<DefaultConfigModel[] | undefined> {
-    const defaultConfig = await DefaultConfigModel.findAll();
-    if (!defaultConfig) {
-      return undefined;
-    } else {
-      return defaultConfig;
-    }
+  async getDefaultConfig(): Promise<DefaultConfigModel[]> {
+    return await DefaultConfigModel.findAll();
   }
-  async updateDafaultConfig(aParams: IDefaultConfigReqDto): Promise<undefined | number> {
-    const updateDefaultConfigResponseFromDb = await DefaultConfigModel.update(
+  async updateDafaultConfig(aParams: IDefaultConfigReqDto): Promise<void> {
+    await DefaultConfigModel.update(
       {
         json: {
           probabilityPercentage: aParams.probabilityPercentage,
@@ -35,11 +30,5 @@ export class DefaultConfigRepoImpl implements IDefaultConfigRepo {
         where: { id: 1 }
       }
     );
-
-    if (!updateDefaultConfigResponseFromDb) {
-      return undefined;
-    } else {
-      return updateDefaultConfigResponseFromDb as unknown as number;
-    }
   }
 }
