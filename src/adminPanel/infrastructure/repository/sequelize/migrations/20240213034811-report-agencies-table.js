@@ -27,7 +27,7 @@ async function up(queryInterface, Sequelize) {
       }
     },
     agencyConfig: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false
     }
   });

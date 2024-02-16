@@ -3,6 +3,6 @@ export interface IPropicDataSuburb {
     suburbName: string;
     state: string;
     page?: number;
-    postcode: number;
+    postcode: string;
   }): Promise<T>;
 }
