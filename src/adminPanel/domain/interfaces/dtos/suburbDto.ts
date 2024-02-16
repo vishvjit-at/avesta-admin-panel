@@ -3,7 +3,7 @@ export interface ISuburbIdDto {
 }
 export interface ISuburbDto extends ISuburbIdDto {
   suburbName: string;
-  postcode: number;
+  postcode: string;
   state: string;
 }
 

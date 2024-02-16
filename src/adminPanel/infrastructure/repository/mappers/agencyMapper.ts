@@ -1,15 +1,15 @@
-import { AgencyEntity } from "../../../domain/entities/agencyEntity";
+import { AgencyConfigEntity } from "../../../domain/entities/agencyConfigEntity";
 import { AgencyConfigModel } from "../sequelize/models/agencyConfigModel";
 
 export class AgencyMapper {
-  static toDomain(usersFromDb: AgencyConfigModel[]) {
-    const agencies: AgencyEntity[] = [];
+  static toDomain(usersFromDb: any[]) {
+    const agencies: AgencyConfigEntity[] = [];
     usersFromDb.forEach((data) => {
-      const agency = new AgencyEntity({
-        id: data.dataValues.id,
-        name: data.dataValues.name,
-        config: data.dataValues.config,
-        email: data.dataValues.email
+      const agency = new AgencyConfigEntity({
+        id: data.id,
+        name: data.name,
+        config: data.agencyConfig,
+        email: data.email
       });
       agencies.push(agency);
     });

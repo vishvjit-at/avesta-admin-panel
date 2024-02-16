@@ -33,7 +33,7 @@ async function up(queryInterface, Sequelize) {
       allowNull: false
     },
     scoredProbabilities: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.DOUBLE(10, 2),
       allowNull: false
     },
     firstPredictedDate: {

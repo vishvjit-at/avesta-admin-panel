@@ -4,7 +4,7 @@ import axios from "axios";
 
 export interface ISuburbProbabilityDataFromURL {
   isSuccess: boolean;
-  data: ISuburbProbabilityData[];
+  data: { data: ISuburbProbabilityData[] };
   pagination: {
     page: number;
     count: number;
@@ -23,13 +23,13 @@ export class PropicDataSuburbImpl implements IPropicDataSuburb {
   async getPropertiesWithPagination<T>(aParams: {
     suburbName: string;
     state: string;
-    postcode: number;
-    page?: number | undefined;
+    postcode: string;
+    page?: number;
   }): Promise<T> {
-    let url = `${process.env.PROPIC_API_BASE_URL}?suburb=${aParams.suburbName}&state=${aParams.state}`;
+    let url = `${process.env.PROPIC_API_BASE_URL}?suburb=${aParams.suburbName}&state=${aParams.state}&postcode=${aParams.postcode}`;
 
     if (aParams.page && aParams.page !== 1) {
-      url = `${process.env.PROPIC_API_BASE_URL}?suburb=${aParams.suburbName}&state=${aParams.state}&page=${aParams.page}`;
+      url = `${process.env.PROPIC_API_BASE_URL}?suburb=${aParams.suburbName}&state=${aParams.state}&postcode=${aParams.postcode}&page=${aParams.page}`;
     }
 
     const headers = {

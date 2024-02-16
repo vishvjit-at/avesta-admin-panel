@@ -12,7 +12,7 @@ export class SuburbEntity {
   getState(): string {
     return this.suburbs.state;
   }
-  getPostcode(): number {
+  getPostcode(): string {
     return this.suburbs.postcode;
   }
   setId(id: number) {
@@ -24,7 +24,7 @@ export class SuburbEntity {
   setState(state: string) {
     this.suburbs.state = state;
   }
-  setPostcode(postcode: number) {
+  setPostcode(postcode: string) {
     this.suburbs.postcode = postcode;
   }
 
@@ -38,8 +38,8 @@ export class SuburbEntity {
     }
   }
 
-  static isPostCodeValid(postcode: number): boolean {
-    if (postcode < 1000 || postcode > 9999) {
+  static isPostCodeValid(postcode: string): boolean {
+    if (Number(postcode) < 1000 || Number(postcode) > 9999) {
       return false;
     } else {
       return true;

@@ -1,4 +1,4 @@
-export class AgencyEntity {
+export class AgencyConfigEntity {
   constructor(private agency: { name: string; email: string; id?: number; config: string }) {}
 
   getId(): number | undefined {
