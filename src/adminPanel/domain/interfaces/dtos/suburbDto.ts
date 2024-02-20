@@ -13,5 +13,5 @@ export interface IGetPaginationReqDto {
 }
 
 export interface ICreateSuburbReqDto extends ISuburbDto {
-  token: string;
+  token: number;
 }

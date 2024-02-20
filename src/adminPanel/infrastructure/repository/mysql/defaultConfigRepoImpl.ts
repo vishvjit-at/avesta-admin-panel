@@ -20,10 +20,7 @@ export class DefaultConfigRepoImpl implements IDefaultConfigRepo {
   async updateDafaultConfig(aParams: IDefaultConfigReqDto): Promise<void> {
     await DefaultConfigModel.update(
       {
-        json: {
-          probabilityPercentage: aParams.probabilityPercentage,
-          propertyCountPerSuburb: aParams.propertyCountPerSuburb
-        },
+        json: aParams.json,
         bccEmail: aParams.bccEmail
       },
       {

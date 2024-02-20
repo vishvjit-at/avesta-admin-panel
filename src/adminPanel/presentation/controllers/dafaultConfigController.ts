@@ -19,7 +19,7 @@ export class DefaultConfigController {
     next: NextFunction
   ) {
     try {
-      const updateConfigResponse = await new DefaultConfigGateWay().updateDefaultConfig(req.body);
+      await new DefaultConfigGateWay().updateDefaultConfig(req.body);
       res.json({ sucess: true });
     } catch (error) {
       res.status(500).json({ success: false, message: error });

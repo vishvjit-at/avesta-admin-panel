@@ -1,10 +1,10 @@
 import { RevAgencyGateWay } from "../../../adminPanel/gateways/revAgencyGateway";
-import { IBodyValidatedRequest } from "../interface/expressRequest.interface";
+import { IQueryValidatedRequest } from "../interface/expressRequest.interface";
 import { IRevReqDto } from "../../../adminPanel/domain/interfaces/dtos/revAgencyDto";
 import { Request, Response, NextFunction } from "express";
 export class RevAgencyController {
   public static async getAgencyByName(
-    req: IBodyValidatedRequest<IRevReqDto>,
+    req: IQueryValidatedRequest<IRevReqDto>,
     res: Response,
     next: NextFunction
   ): Promise<void> {
@@ -17,7 +17,7 @@ export class RevAgencyController {
     }
   }
 
-  public static async getAgentsEmailByAgencyName(req:IBodyValidatedRequest<IRevReqDto>,res:Response,next:NextFunction){
+  public static async getAgentsEmailByAgencyName(req:IQueryValidatedRequest<IRevReqDto>,res:Response,next:NextFunction){
     try {
         const agentEmail = await new RevAgencyGateWay().getAgentEmailByAgencyId(req.body)
   
