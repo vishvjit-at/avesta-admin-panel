@@ -14,7 +14,7 @@ DefaultConfigModel.init(
     json: {
       type: DataTypes.STRING,
       allowNull: false,
-      
+       
     },
     bccEmail:{
       type:DataTypes.STRING,

@@ -6,6 +6,7 @@ import { Router as featureFlagRouter } from "../../featureFlagService/presentati
 import { Router as jobRouter } from "./routes/jobRoutes";
 import {Router as defaultConfig} from "./routes/defaultConfigRoutes"
 import {Router as revAgency} from './routes/revAgencyRoutes'
+ import { Router as agencyConfig } from "./routes/agencyConfigRoutes";
 const app = express();
 
 const port = 3000;
@@ -21,6 +22,7 @@ app.use("/feature-flag", featureFlagRouter);
 app.use("/job", jobRouter);
 app.use("/defaultConfig", defaultConfig)
 app.use("/revAgency",revAgency)
+ app.use("/agencyConfig",agencyConfig)
 
 app.get("/", (req, res) => res.json({ data: "hello" }));
 

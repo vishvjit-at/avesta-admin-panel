@@ -13,6 +13,7 @@ export class DefaultConfigGateWay{
         return getDefaultConfig.execute()
     }
     updateDefaultConfig(aParams:IDefaultConfigReqDto){
+   
         const updateConfigResponse=new UpdateDefaultConfig(this.defaultConfigRepo)
         return updateConfigResponse.execute(aParams)
     }

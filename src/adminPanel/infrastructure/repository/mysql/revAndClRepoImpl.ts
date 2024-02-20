@@ -31,6 +31,7 @@ export class RevAndClRepoImpl implements IRevAndClRepo {
   async getAgencyByName<T>(aParams: IRevReqDto): Promise<T> {
     try {
       const db = await RevAndClRepoImpl.getDbInstance();
+  
       const data = await db.all(
         `SELECT id,agencyName FROM rev_db.agencies WHERE agencyName LIKE '%${aParams.agencyName}%' LIMIT 10`
       );
@@ -77,7 +78,7 @@ export class RevAndClRepoImpl implements IRevAndClRepo {
   async getAgenciesAndConfig(): Promise<AgencyConfigEntity[]> {
     const db = await RevAndClRepoImpl.getDbInstance();
     const data = await db.all(
-      "select a.agencyName as name, ac.id, ac.email,ac.agencyConfig from admin_db.agencyConfig ac left join rev_db.agencies a on a.id = ac.agencyId"
+      "select a.agencyName as name, ac.id, ac.email,ac.agencyConfig,ac.agencyId from admin_db.agencyConfig ac left join rev_db.agencies a on a.id = ac.agencyId"
     );
 
     return AgencyMapper.toDomain(data);

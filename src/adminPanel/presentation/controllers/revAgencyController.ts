@@ -9,7 +9,7 @@ export class RevAgencyController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const agencyData = await new RevAgencyGateWay().getAgencyByName(req.body);
+      const agencyData = await new RevAgencyGateWay().getAgencyByName(req.query);
 
       res.json({ success: true, message: agencyData });
     } catch (error) {
@@ -19,7 +19,7 @@ export class RevAgencyController {
 
   public static async getAgentsEmailByAgencyName(req:IQueryValidatedRequest<IRevReqDto>,res:Response,next:NextFunction){
     try {
-        const agentEmail = await new RevAgencyGateWay().getAgentEmailByAgencyId(req.body)
+        const agentEmail = await new RevAgencyGateWay().getAgentEmailByAgencyId(req.query)
   
         res.json({ success: true, message: agentEmail });
       } catch (error) {

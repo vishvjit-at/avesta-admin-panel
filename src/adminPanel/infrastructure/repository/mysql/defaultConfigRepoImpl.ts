@@ -23,16 +23,17 @@ export class DefaultConfigRepoImpl implements IDefaultConfigRepo {
     }
   }
   async updateDafaultConfig(aParams: IDefaultConfigReqDto): Promise<undefined | number> {
+   
     const updateDefaultConfigResponseFromDb = await DefaultConfigModel.update(
       {
-        json: aParams.json,
+        json:aParams.json,
         bccEmail: aParams.bccEmail
       },
       {
         where: { id: 1 }
       }
     );
-
+   
     if (!updateDefaultConfigResponseFromDb) {
       return undefined;
     } else {
