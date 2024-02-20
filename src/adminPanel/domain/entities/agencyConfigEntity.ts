@@ -1,11 +1,11 @@
 export class AgencyConfigEntity {
-  constructor(private agency: { name: string; email: string; id?: number; config: string; agencyId: number }) {}
+  constructor(private agency: { name?: string; email: string; id?: number; config: string; agencyId: number }) {}
 
   getId(): number | undefined {
     return this.agency.id;
   }
 
-  getName(): string {
+  getName(): string | undefined {
     return this.agency.name;
   }
 

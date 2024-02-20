@@ -11,17 +11,18 @@ AgencyConfigModel.init(
       autoIncrement: true,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    agencyConfig: {
+    agencyId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    agencyConfig: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      
     }
   },
   { tableName: "agencyConfig", sequelize, timestamps: false }

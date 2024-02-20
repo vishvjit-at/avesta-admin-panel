@@ -31,6 +31,7 @@ export class RevAndClRepoImpl implements IRevAndClRepo {
   async getAgencyByName<T>(aParams: IRevReqDto): Promise<T> {
     try {
       const db = await RevAndClRepoImpl.getDbInstance();
+  
       const data = await db.all(
         `SELECT id,agencyName FROM rev_db.agencies WHERE agencyName LIKE '%${aParams.agencyName}%' LIMIT 10`
       );

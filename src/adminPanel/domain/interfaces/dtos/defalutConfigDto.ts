@@ -3,7 +3,8 @@ export interface IDefaultConfigDto {
   json: string;
   bccEmail: string;
 }
-export interface IDefaultConfigReqDto {
- json?:string
-  bccEmail?: string;
+export interface IDefaultConfigReqDto{
+    json?:string
+    bccEmail?:string
+
 }
