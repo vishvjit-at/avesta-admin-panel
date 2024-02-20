@@ -15,8 +15,8 @@ export class DefaultConfigController{
 
     public static async updateDefaultConfig(req: IBodyValidatedRequest<IDefaultConfigReqDto>,res:Response,next:NextFunction){
         try {
-            const updateConfigResponse=await new DefaultConfigGateWay().updateDefaultConfig(req.body)
-            res.json({sucess:true,message:updateConfigResponse})
+            await new DefaultConfigGateWay().updateDefaultConfig(req.body)
+            res.json({sucess:true})
         } catch (error) {
             res.status(500).json({ success: false, message: error });
         }

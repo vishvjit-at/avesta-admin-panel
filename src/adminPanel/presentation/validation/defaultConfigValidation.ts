@@ -2,9 +2,8 @@ import Joi from "joi";
 
 const schemas = {
   updateDefaultConfig: Joi.object({
-    probabilityPercentage: Joi.number().required(),
-    propertyCountPerSuburb:Joi.number().required()
-    ,bccEmail: Joi.string().required()
+  json:Joi.string()
+    ,bccEmail: Joi.string()
   })
 };
 export default schemas;

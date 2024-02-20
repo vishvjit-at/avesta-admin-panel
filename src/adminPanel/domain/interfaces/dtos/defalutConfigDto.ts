@@ -4,7 +4,6 @@ export interface IDefaultConfigDto {
   bccEmail: string;
 }
 export interface IDefaultConfigReqDto {
-  probabilityPercentage?: number;
-  propertyCountPerSuburb?: number;
+ json?:string
   bccEmail?: string;
 }
